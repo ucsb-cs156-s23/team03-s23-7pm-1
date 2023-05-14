@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s23/team03-s23-7pm-1
 owner: ucsb-cs156-s23
 repo_name: team03-s23-7pm-1
-pull_requests: [{"author":{"id":"MDQ6VXNlcjExMTkwMTc=","is_bot":false,"login":"pconrad","name":"Phill Conrad"},"headRefName":"pc-add-restaurant-form-table-utils-from-team01","number":18,"title":"Pc add restaurant form table utils from team01","url":"https://github.com/ucsb-cs156-s23/team03-s23-7pm-1/pull/18"},{"author":{"id":"MDQ6VXNlcjExMTkwMTc=","is_bot":false,"login":"pconrad","name":"Phill Conrad"},"headRefName":"pc-restore-cjb-pr-13","number":15,"title":"Pc restore cjb pr 13","url":"https://github.com/ucsb-cs156-s23/team03-s23-7pm-1/pull/15"}]
+pull_requests: []
