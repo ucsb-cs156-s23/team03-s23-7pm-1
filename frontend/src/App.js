@@ -11,6 +11,10 @@ import UCSBDatesIndexPage from "main/pages/UCSBDates/UCSBDatesIndexPage";
 import UCSBDatesCreatePage from "main/pages/UCSBDates/UCSBDatesCreatePage";
 import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
 
+import ParkCreatePage from "main/pages/Parks/ParkCreatePage";
+import ParkEditPage from "main/pages/Parks/ParkEditPage";
+import ParkIndexPage from "main/pages/Parks/ParkIndexPage";
+import ParkDetailsPage from "main/pages/Parks/ParkDetailsPage";
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
@@ -51,6 +55,17 @@ function App() {
             <>
               <Route exact path="/ucsbdates/edit/:id" element={<UCSBDatesEditPage />} />
               <Route exact path="/ucsbdates/create" element={<UCSBDatesCreatePage />} />
+            </>
+          )
+        }
+
+        {
+          hasRole(currentUser, "ROLE_ADMIN") && (
+            <>
+              <Route exact path="/parks/create" element={<ParkCreatePage />} />
+              <Route exact path="/parks/edit/:id" element={<ParkEditPage />} />
+              <Route exact path="/parks/details/:id" element={<ParkDetailsPage />} />
+              <Route exact path="/parks/" element={<ParkIndexPage />} />
             </>
           )
         }
