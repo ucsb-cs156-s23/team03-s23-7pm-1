@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for utils/restaurantUtils.js</title>
+    <title>Code coverage report for utils/parkUtils.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">utils</a> restaurantUtils.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">utils</a> parkUtils.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -152,10 +152,7 @@
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
@@ -244,90 +241,87 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// get restaurants from local storage
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// get parks from local storage
 const get = () =&gt; {
-    const restaurantValue = localStorage.getItem("restaurants");
-    if (restaurantValue === undefined) {
-        const restaurantCollection = { nextId: 1, restaurants: [] }
-        return set(restaurantCollection);
+    const parkValue = localStorage.getItem("parks");
+    if (parkValue === undefined) {
+        const parkCollection = { nextId: 1, parks: [] }
+        return set(parkCollection);
     }
-    const restaurantCollection = JSON.parse(restaurantValue);
-    if (restaurantCollection === null) {
-        const restaurantCollection = { nextId: 1, restaurants: [] }
-        return set(restaurantCollection);
+    const parkCollection = JSON.parse(parkValue);
+    if (parkCollection === null) {
+        const parkCollection = { nextId: 1, parks: [] }
+        return set(parkCollection);
     }
-    return restaurantCollection;
+    return parkCollection;
 };
 &nbsp;
 const getById = (id) =&gt; {
     if (id === undefined) {
         return { "error": "id is a required parameter" };
     }
-    const restaurantCollection = get();
-    const restaurants = restaurantCollection.restaurants;
+    const parkCollection = get();
+    const parks = parkCollection.parks;
 &nbsp;
     /* eslint-disable-next-line eqeqeq */ // we really do want == here, not ===
-    const index = restaurants.findIndex((r) =&gt; r.id == id);
+    const index = parks.findIndex((r) =&gt; r.id == id);
     if (index === -1) {
-        return { "error": `restaurant with id ${id} not found` };
+        return { "error": `park with id ${id} not found` };
     }
-    return { restaurant: restaurants[index] };
+    return { park: parks[index] };
 }
 &nbsp;
-// set restaurants in local storage
-const set = (restaurantCollection) =&gt; {
-    localStorage.setItem("restaurants", JSON.stringify(restaurantCollection));
-    return restaurantCollection;
+// set parks in local storage
+const set = (parkCollection) =&gt; {
+    localStorage.setItem("parks", JSON.stringify(parkCollection));
+    return parkCollection;
 };
 &nbsp;
-// add a restaurant to local storage
-const add = (restaurant) =&gt; {
-    const restaurantCollection = get();
-    restaurant = { ...restaurant, id: restaurantCollection.nextId };
-    restaurantCollection.nextId++;
-    restaurantCollection.restaurants.push(restaurant);
-    set(restaurantCollection);
-    return restaurant;
+// add a park to local storage
+const add = (park) =&gt; {
+    const parkCollection = get();
+    park = { ...park, id: parkCollection.nextId };
+    parkCollection.nextId++;
+    parkCollection.parks.push(park);
+    set(parkCollection);
+    return park;
 };
 &nbsp;
-// update a restaurant in local storage
-const update = (restaurant) =&gt; {
-    const restaurantCollection = get();
+// update a park in local storage
+const update = (park) =&gt; {
+    const parkCollection = get();
 &nbsp;
-    const restaurants = restaurantCollection.restaurants;
+    const parks = parkCollection.parks;
 &nbsp;
     /* eslint-disable-next-line eqeqeq */ // we really do want == here, not ===
-    const index = restaurants.findIndex((r) =&gt; r.id == restaurant.id);
+    const index = parks.findIndex((r) =&gt; r.id == park.id);
     if (index === -1) {
-        return { "error": `restaurant with id ${restaurant.id} not found` };
+        return { "error": `park with id ${park.id} not found` };
     }
-    restaurants[index] = restaurant;
-    set(restaurantCollection);
-    return { restaurantCollection: restaurantCollection };
+    parks[index] = park;
+    set(parkCollection);
+    return { parkCollection: parkCollection };
 };
 &nbsp;
-// delete a restaurant from local storage
+// delete a park from local storage
 const del = (id) =&gt; {
     if (id === undefined) {
         return { "error": "id is a required parameter" };
     }
-    const restaurantCollection = get();
-    const restaurants = restaurantCollection.restaurants;
+    const parkCollection = get();
+    const parks = parkCollection.parks;
 &nbsp;
     /* eslint-disable-next-line eqeqeq */ // we really do want == here, not ===
-    const index = restaurants.findIndex((r) =&gt; r.id == id);
+    const index = parks.findIndex((r) =&gt; r.id == id);
     if (index === -1) {
-        return { "error": `restaurant with id ${id} not found` };
+        return { "error": `park with id ${id} not found` };
     }
-    restaurants.splice(index, 1);
-    set(restaurantCollection);
-    return { restaurantCollection: restaurantCollection };
+    parks.splice(index, 1);
+    set(parkCollection);
+    return { parkCollection: parkCollection };
 };
 &nbsp;
-const restaurantUtils = {
+const parkUtils = {
     get,
     getById,
     add,
@@ -335,10 +329,7 @@ const restaurantUtils = {
     del
 };
 &nbsp;
-export { restaurantUtils };
-&nbsp;
-&nbsp;
-&nbsp;
+export { parkUtils };
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
