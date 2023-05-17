@@ -43,10 +43,6 @@ export default function ParkTable({
             accessor: 'state',
         },
         {
-            Header: 'Description',
-            accessor: 'description',
-        },
-        {
             Header: 'Acres',
             accessor: 'acres',
         }

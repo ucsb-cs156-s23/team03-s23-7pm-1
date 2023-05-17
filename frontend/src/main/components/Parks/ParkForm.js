@@ -85,35 +85,14 @@ function ParkForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                     type="number"
                     isInvalid={Boolean(errors.state)}
                     {...register("acres", {
-                        required: "Acres are required.",
+                        required: "Number of acres is required.",
                         valueAsNumber: true,
-                        // maxLength : {
-                        //     value: 25,
-                        //     message: "Max length 25 characters"
-                        // }
                     })}
                 />
                 <Form.Control.Feedback type="invalid">
                     {errors.acres?.message}
                 </Form.Control.Feedback>
             </Form.Group>
-
-            <Form.Group className="mb-3" >
-                <Form.Label htmlFor="description">Description</Form.Label>
-                <Form.Control
-                    data-testid={testIdPrefix + "-description"}
-                    id="description"
-                    type="text"
-                    isInvalid={Boolean(errors.description)}
-                    {...register("description", {
-                        required: "Description is required."
-                    })}
-                />
-                <Form.Control.Feedback type="invalid">
-                    {errors.description?.message}
-                </Form.Control.Feedback>
-            </Form.Group>
-
 
             <Button
                 type="submit"

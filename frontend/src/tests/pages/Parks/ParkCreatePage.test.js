@@ -42,8 +42,7 @@ describe("ParkCreatePage tests", () => {
                 id: 3,
                 name: "Zion National Park",
                 state: "Utah",
-                acres: 147242,
-                description: "Magnificent sandstone cliffs, narrow canyons, and diverse plant and animal life."
+                acres: 147242
             }
         });
 
@@ -64,9 +63,6 @@ describe("ParkCreatePage tests", () => {
         const acresInput = screen.getByLabelText("Acres");
         expect(acresInput).toBeInTheDocument();
 
-        const descriptionInput = screen.getByLabelText("Description");
-        expect(descriptionInput).toBeInTheDocument();
-
         const createButton = screen.getByText("Create");
         expect(createButton).toBeInTheDocument();
 
@@ -74,7 +70,6 @@ describe("ParkCreatePage tests", () => {
             fireEvent.change(nameInput, { target: { value: 'Zion National Park' } })
             fireEvent.change(stateInput, { target: { value: 'Utah' } })
             fireEvent.change(acresInput, { target: { value: 147242 } })
-            fireEvent.change(descriptionInput, { target: { value: 'Magnificent sandstone cliffs, narrow canyons, and diverse plant and animal life.' } })
             fireEvent.click(createButton);
         });
 
@@ -84,7 +79,7 @@ describe("ParkCreatePage tests", () => {
         // assert - check that the console.log was called with the expected message
         expect(console.log).toHaveBeenCalled();
         const message = console.log.mock.calls[0][0];
-        const expectedMessage =  `createdPark: {"park":{"id":3,"name":"Zion National Park","state":"Utah","acres":147242,"description":"Magnificent sandstone cliffs, narrow canyons, and diverse plant and animal life."}`
+        const expectedMessage =  `createdPark: {"park":{"id":3,"name":"Zion National Park","state":"Utah","acres":147242}`
 
         expect(message).toMatch(expectedMessage);
         restoreConsole();

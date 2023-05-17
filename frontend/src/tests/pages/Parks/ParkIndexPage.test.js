@@ -26,8 +26,7 @@ jest.mock('main/utils/parkUtils', () => {
                             id: 3,
                             name: "Zion National Park",
                             state: "Utah",
-                            acres: 147242,
-                            description: "Magnificent sandstone cliffs, narrow canyons, and diverse plant and animal life."
+                            acres: 147242
                         },
                     ]
                 }
@@ -66,9 +65,6 @@ describe("ParkIndexPage tests", () => {
         const name = screen.getByText("Zion National Park");
         expect(name).toBeInTheDocument();
 
-        const description = screen.getByText("Magnificent sandstone cliffs, narrow canyons, and diverse plant and animal life.");
-        expect(description).toBeInTheDocument();
-
         expect(screen.getByTestId("ParkTable-cell-row-0-col-Delete-button")).toBeInTheDocument();
         expect(screen.getByTestId("ParkTable-cell-row-0-col-Details-button")).toBeInTheDocument();
         expect(screen.getByTestId("ParkTable-cell-row-0-col-Edit-button")).toBeInTheDocument();
@@ -89,9 +85,6 @@ describe("ParkIndexPage tests", () => {
         const name = screen.getByText("Zion National Park");
         expect(name).toBeInTheDocument();
 
-        const description = screen.getByText("Magnificent sandstone cliffs, narrow canyons, and diverse plant and animal life.");
-        expect(description).toBeInTheDocument();
-
         const deleteButton = screen.getByTestId("ParkTable-cell-row-0-col-Delete-button");
         expect(deleteButton).toBeInTheDocument();
 
@@ -106,7 +99,7 @@ describe("ParkIndexPage tests", () => {
         // assert - check that the console.log was called with the expected message
         expect(console.log).toHaveBeenCalled();
         const message = console.log.mock.calls[0][0];
-        const expectedMessage = "ParkIndexPage deleteCallback: {\"id\":3,\"name\":\"Zion National Park\",\"state\":\"Utah\",\"description\":\"Magnificent sandstone cliffs, narrow canyons, and diverse plant and animal life.\",\"acres\":147242})";
+        const expectedMessage = "ParkIndexPage deleteCallback: {\"id\":3,\"name\":\"Zion National Park\",\"state\":\"Utah\",\"acres\":147242})";
         expect(message).toMatch(expectedMessage);
         restoreConsole();
 

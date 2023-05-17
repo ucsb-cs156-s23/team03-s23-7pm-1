@@ -22,8 +22,7 @@ jest.mock('main/utils/parkUtils', () => {
                         id: 3,
                         name: "Zion National Park",
                         state: "Utah",
-                        acres: 147242,
-                        description: "Magnificent sandstone cliffs, narrow canyons, and diverse plant and animal life."
+                        acres: 147242
                     }
                 }
             }
@@ -53,8 +52,6 @@ describe("ParkDetailsPage tests", () => {
             </QueryClientProvider>
         );
         expect(screen.getByText("Zion National Park")).toBeInTheDocument();
-        expect(screen.getByText("Magnificent sandstone cliffs, narrow canyons, and diverse plant and animal life.")).toBeInTheDocument();
-
         expect(screen.queryByText("Delete")).not.toBeInTheDocument();
         expect(screen.queryByText("Edit")).not.toBeInTheDocument();
         expect(screen.queryByText("Details")).not.toBeInTheDocument();

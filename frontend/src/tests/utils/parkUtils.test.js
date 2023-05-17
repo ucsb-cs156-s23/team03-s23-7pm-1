@@ -211,8 +211,7 @@ describe("parkUtils tests", () => {
 
             const updatedpark = {
                 id: 99,
-                name: "Fake Name",
-                description: "Fake Description"
+                name: "Fake Name"
             }
 
             // act
