@@ -37,10 +37,6 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
             }
           </Nav>
 
-          <>
-            {/* be sure that each NavDropdown has a unique id and data-testid  */}
-          </>
-
           <Navbar.Collapse className="justify-content-between">
             <Nav className="mr-auto">
               {
@@ -82,7 +78,6 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               {
                 hasRole(currentUser, "ROLE_USER") && (
                   <NavDropdown title="Parks" id="appnavbar-parks-dropdown" data-testid="appnavbar-todos-dropdown" >
-                    //<NavDropdown.Item href="/parks/list">List Parks</NavDropdown.Item>
                     <NavDropdown.Item href="/parks/create">Create Park</NavDropdown.Item>
                   </NavDropdown>
                 )
