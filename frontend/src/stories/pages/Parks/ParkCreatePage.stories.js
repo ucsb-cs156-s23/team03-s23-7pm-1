@@ -4,7 +4,7 @@ import ParkCreatePage from "main/pages/Parks/ParkCreatePage";
 
 export default {
     title: 'pages/Parks/ParkCreatePage',
-    component: ParksCreatePage
+    component: ParkCreatePage
 };
 
 const Template = () => <ParkCreatePage />;
