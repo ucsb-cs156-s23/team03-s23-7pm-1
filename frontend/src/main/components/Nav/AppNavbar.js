@@ -1,6 +1,5 @@
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { hasRole } from "main/utils/currentUser";
+import { Link } from "react-router-dom"; import { hasRole } from "main/utils/currentUser";
 import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost"
 
 export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUrl = window.location.href }) {
@@ -36,10 +35,6 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               )
             }
           </Nav>
-
-          <>
-            {/* be sure that each NavDropdown has a unique id and data-testid  */}
-          </>
 
           <Navbar.Collapse className="justify-content-between">
             <Nav className="mr-auto">
@@ -82,6 +77,21 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                     {
                       hasRole(currentUser, "ROLE_ADMIN") && (
                         <NavDropdown.Item href="/ucsbdates/create" data-testid="appnavbar-ucsbdates-create">Create</NavDropdown.Item>
+                      )
+                    }
+                  </NavDropdown>
+                )
+              }
+            </Nav>
+
+            <Nav className="mr-auto">
+              {
+                hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="Parks" id="appnavbar-parks-dropdown" data-testid="appnavbar-parks-dropdown" >
+                    <NavDropdown.Item href="/parks/list" data-testid="appnavbar-parks-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item href="/parks/create" data-testid="appnavbar-parks-create">Create</NavDropdown.Item>
                       )
                     }
                   </NavDropdown>
