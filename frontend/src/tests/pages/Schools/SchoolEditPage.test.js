@@ -98,11 +98,11 @@ describe("SchoolEditPage tests", () => {
         const updateButton = screen.getByText("Update");
         expect(updateButton).toBeInTheDocument();
 
-       
+    
         fireEvent.change(nameInput, { target: { value: 'Dos Pueblos High School' } })
         fireEvent.change(districtInput, { target: { value: 'Santa Barbara Unified School District' } })
         fireEvent.click(updateButton);
-        
+    
 
         await waitFor(() => expect(mockUpdate).toHaveBeenCalled());
         await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith("/schools"));
