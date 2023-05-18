@@ -1,6 +1,5 @@
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { hasRole } from "main/utils/currentUser";
+import { Link } from "react-router-dom"; import { hasRole } from "main/utils/currentUser";
 import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost"
 
 export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUrl = window.location.href }) {
@@ -78,8 +77,12 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               {
                 hasRole(currentUser, "ROLE_USER") && (
                   <NavDropdown title="Parks" id="appnavbar-parks-dropdown" data-testid="appnavbar-parks-dropdown" >
-                    <NavDropdown.Item href="/parks/">List Parks</NavDropdown.Item>
-                    <NavDropdown.Item href="/parks/create">Create Park</NavDropdown.Item>
+                    <NavDropdown.Item href="/parks/list" data-testid="appnavbar-parks-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item href="/parks/create" data-testid="appnavbar-parks-create">Create</NavDropdown.Item>
+                      )
+                    }
                   </NavDropdown>
                 )
               }

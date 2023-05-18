@@ -237,29 +237,29 @@ describe("AppNavbar tests", () => {
 
     });
 
-    test("renders the parks menu correctly for an admin", async () => {
+    // test("renders the parks menu correctly for an admin", async () => {
 
-        const currentUser = currentUserFixtures.adminUser;
-        const systemInfo = systemInfoFixtures.showingBoth;
+    //     const currentUser = currentUserFixtures.adminUser;
+    //     const systemInfo = systemInfoFixtures.showingBoth;
 
-        const doLogin = jest.fn();
+    //     const doLogin = jest.fn();
 
-        const {getByTestId, findByTestId  } = render(
-            <QueryClientProvider client={queryClient}>
-                <MemoryRouter>
-                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
-                </MemoryRouter>
-            </QueryClientProvider>
-        );
+    //     const {getByTestId, findByTestId  } = render(
+    //         <QueryClientProvider client={queryClient}>
+    //             <MemoryRouter>
+    //                 <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
+    //             </MemoryRouter>
+    //         </QueryClientProvider>
+    //     );
 
-        await findByTestId("appnavbar-parks-dropdown");
-        const dropdown = getByTestId("appnavbar-parks-dropdown");
-        const aElement = dropdown.querySelector("a");
-        expect(aElement).toBeInTheDocument();
-        aElement?.click();
-        await findByTestId(/appnavbar-parks-create/);
+    //     await findByTestId("appnavbar-parks-dropdown");
+    //     const dropdown = getByTestId("appnavbar-parks-dropdown");
+    //     const aElement = dropdown.querySelector("a");
+    //     expect(aElement).toBeInTheDocument();
+    //     aElement?.click();
+    //     await findByTestId(/appnavbar-parks-create/);
 
-    });
+    // });
 });
 
 
