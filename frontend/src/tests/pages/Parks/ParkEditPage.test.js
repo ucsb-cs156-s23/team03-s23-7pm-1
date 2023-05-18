@@ -98,12 +98,10 @@ describe("ParkEditPage tests", () => {
         const updateButton = screen.getByText("Update");
         expect(updateButton).toBeInTheDocument();
 
-        await act(async () => {
-            fireEvent.change(nameInput, { target: { value: 'Zion National Park' } })
-            fireEvent.change(stateInput, { target: { value: 'Utah' } })
-            fireEvent.change(acresInput, { target: { value: 147242 } })
-            fireEvent.click(updateButton);
-        });
+        fireEvent.change(nameInput, { target: { value: 'Zion National Park' } })
+        fireEvent.change(stateInput, { target: { value: 'Utah' } })
+        fireEvent.change(acresInput, { target: { value: 147242 } })
+        fireEvent.click(updateButton);
 
         await waitFor(() => expect(mockUpdate).toHaveBeenCalled());
         await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith("/parks"));
