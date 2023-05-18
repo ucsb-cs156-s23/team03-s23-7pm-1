@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/Nav/AppNavbar.js</title>
+    <title>Code coverage report for components/Parks/ParkForm.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Nav</a> AppNavbar.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Parks</a> ParkForm.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -160,25 +160,47 @@
 <a name='L95'></a><a href='#L95'>95</a>
 <a name='L96'></a><a href='#L96'>96</a>
 <a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">88x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -257,104 +279,139 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { hasRole } from "main/utils/currentUser";
-import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost"
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import { Button, Form } from 'react-bootstrap';
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom';
 &nbsp;
-export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUrl = window.location.href }) {
-  return (
-    &lt;&gt;
-      {
-        (currentUrl.startsWith("http://localhost:3000") ||
-          currentUrl.startsWith("http://127.0.0.1:3000")) &amp;&amp; (
-          &lt;AppNavbarLocalhost url={currentUrl} /&gt;
-        )
-      }
-      &lt;Navbar expand="xl" variant="dark" bg="dark" sticky="top" data-testid="AppNavbar"&gt;
-        &lt;Container&gt;
-          &lt;Navbar.Brand as={Link} to="/"&gt;
-            Example
-          &lt;/Navbar.Brand&gt;
+function <span class="fstat-no" title="function not covered" >ParkForm(</span>{ initialContents, submitAction, buttonLabel = <span class="branch-0 cbranch-no" title="branch not covered" >"Create" </span>}) {
 &nbsp;
-          &lt;Navbar.Toggle /&gt;
+    const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
+    
+    // Stryker disable all
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = <span class="cstat-no" title="statement not covered" >useForm(</span>
+        { defaultValues: initialContents || {}, }
+    );
+    // Stryker enable all
+   
+    const testIdPrefix = <span class="cstat-no" title="statement not covered" >"ParkForm";</span>
 &nbsp;
-          &lt;Nav className="me-auto"&gt;
-            {
-              systemInfo?.springH2ConsoleEnabled &amp;&amp; (
-                &lt;&gt;
-                  &lt;Nav.Link href="/h2-console"&gt;H2Console&lt;/Nav.Link&gt;
-                &lt;/&gt;
-              )
-            }
-            {
-              systemInfo?.showSwaggerUILink &amp;&amp; (
-                &lt;&gt;
-                  &lt;Nav.Link href="/swagger-ui/index.html"&gt;Swagger&lt;/Nav.Link&gt;
-                &lt;/&gt;
-              )
-            }
-          &lt;/Nav&gt;
+<span class="cstat-no" title="statement not covered" >    return (</span>
 &nbsp;
-          &lt;&gt;
-            {/* be sure that each NavDropdown has a unique id and data-testid  */}
-          &lt;/&gt;
+        &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
 &nbsp;
-          &lt;Navbar.Collapse className="justify-content-between"&gt;
-            &lt;Nav className="mr-auto"&gt;
-              {
-                hasRole(currentUser, "ROLE_ADMIN") &amp;&amp; (
-                  &lt;NavDropdown title="Admin" id="appnavbar-admin-dropdown" data-testid="appnavbar-admin-dropdown" &gt;
-                    &lt;NavDropdown.Item href="/admin/users"&gt;Users&lt;/NavDropdown.Item&gt;
-                  &lt;/NavDropdown&gt;
-                )
-              }
-            &lt;/Nav&gt;
+            {initialContents &amp;&amp; (
+                &lt;Form.Group className="mb-3" &gt;
+                    &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
+                    &lt;Form.Control
+                        data-testid={testIdPrefix + "-id"}
+                        id="id"
+                        type="text"
+                        {...register("id")}
+                        value={initialContents.id}
+                        disabled
+                    /&gt;
+                &lt;/Form.Group&gt;
+            )}
 &nbsp;
-            &lt;Nav className="mr-auto"&gt;
-              {
-                hasRole(currentUser, "ROLE_USER") &amp;&amp; (
-                  &lt;NavDropdown title="Todos" id="appnavbar-todos-dropdown" data-testid="appnavbar-todos-dropdown" &gt;
-                    &lt;NavDropdown.Item href="/todos/list"&gt;List Todos&lt;/NavDropdown.Item&gt;
-                    &lt;NavDropdown.Item href="/todos/create"&gt;Create Todo&lt;/NavDropdown.Item&gt;
-                  &lt;/NavDropdown&gt;
-                )
-              }
-            &lt;/Nav&gt;
+            &lt;Form.Group className="mb-3" &gt;
+                &lt;Form.Label htmlFor="name"&gt;Name&lt;/Form.Label&gt;
+                &lt;Form.Control
+                    data-testid={testIdPrefix + "-name"}
+                    id="name"
+                    type="text"
+                    isInvalid={Boolean(errors.name)}
+                    {...register("name", {
+                        required: "Name is required.",
+                        maxLength : {
+                            value: 50,
+                            message: "Max length 50 characters"
+                        }
+                    })}
+                /&gt;
+                &lt;Form.Control.Feedback type="invalid"&gt;
+                    {errors.name?.message}
+                &lt;/Form.Control.Feedback&gt;
+            &lt;/Form.Group&gt;
 &nbsp;
-            &lt;Nav className="mr-auto"&gt;
-              {
-                hasRole(currentUser, "ROLE_USER") &amp;&amp; (
-                  &lt;NavDropdown title="UCSBDates" id="appnavbar-ucsbdates-dropdown" data-testid="appnavbar-ucsbdates-dropdown" &gt;
-                    &lt;NavDropdown.Item href="/ucsbdates/list" data-testid="appnavbar-ucsbdates-list"&gt;List&lt;/NavDropdown.Item&gt;
-                    {
-                      hasRole(currentUser, "ROLE_ADMIN") &amp;&amp; (
-                        &lt;NavDropdown.Item href="/ucsbdates/create" data-testid="appnavbar-ucsbdates-create"&gt;Create&lt;/NavDropdown.Item&gt;
-                      )
-                    }
-                  &lt;/NavDropdown&gt;
-                )
-              }
-            &lt;/Nav&gt;
+            &lt;Form.Group className="mb-3" &gt;
+                &lt;Form.Label htmlFor="state"&gt;State&lt;/Form.Label&gt;
+                &lt;Form.Control
+                    data-testid={testIdPrefix + "-state"}
+                    id="state"
+                    type="text"
+                    isInvalid={Boolean(errors.state)}
+                    {...register("state", {
+                        required: "State is required.",
+                        maxLength : {
+                            value: 25,
+                            message: "Max length 25 characters"
+                        }
+                    })}
+                /&gt;
+                &lt;Form.Control.Feedback type="invalid"&gt;
+                    {errors.state?.message}
+                &lt;/Form.Control.Feedback&gt;
+            &lt;/Form.Group&gt;
 &nbsp;
-            &lt;Nav className="ml-auto"&gt;
-              {
-                currentUser &amp;&amp; currentUser.loggedIn ? (
-                  &lt;&gt;
-                    &lt;Navbar.Text className="me-3" as={Link} to="/profile"&gt;Welcome, {currentUser.root.user.email}&lt;/Navbar.Text&gt;
-                    &lt;Button onClick={doLogout}&gt;Log Out&lt;/Button&gt;
-                  &lt;/&gt;
-                ) : (
-                  &lt;Button href="/oauth2/authorization/google"&gt;Log In&lt;/Button&gt;
-                )
-              }
-            &lt;/Nav&gt;
-          &lt;/Navbar.Collapse&gt;
-        &lt;/Container &gt;
-      &lt;/Navbar &gt;
-    &lt;/&gt;
-  );
-}</pre></td></tr></table></pre>
+            &lt;Form.Group className="mb-3" &gt;
+                &lt;Form.Label htmlFor="acres"&gt;Acres&lt;/Form.Label&gt;
+                &lt;Form.Control
+                    data-testid={testIdPrefix + "-acres"}
+                    id="acres"
+                    type="number"
+                    isInvalid={Boolean(errors.state)}
+                    {...register("acres", {
+                        required: "Acres are required.",
+                        valueAsNumber: true,
+                    })}
+                /&gt;
+                &lt;Form.Control.Feedback type="invalid"&gt;
+                    {errors.acres?.message}
+                &lt;/Form.Control.Feedback&gt;
+            &lt;/Form.Group&gt;
+&nbsp;
+            &lt;Button
+                type="submit"
+                data-testid={testIdPrefix + "-submit"}
+            &gt;
+                {buttonLabel}
+            &lt;/Button&gt;
+            &lt;Button
+                variant="Secondary"
+                onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate(-1)}</span>
+                data-testid={testIdPrefix + "-cancel"}
+            &gt;
+                Cancel
+            &lt;/Button&gt;
+&nbsp;
+        &lt;/Form&gt;
+&nbsp;
+    )
+}
+&nbsp;
+export default ParkForm;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->

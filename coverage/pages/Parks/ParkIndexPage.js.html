@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/Nav/AppNavbarLocalhost.js</title>
+    <title>Code coverage report for pages/Parks/ParkIndexPage.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Nav</a> AppNavbarLocalhost.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/Parks</a> ParkIndexPage.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -91,15 +91,12 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -108,6 +105,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -118,35 +129,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Container, Nav, Navbar } from "react-bootstrap";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import Button from 'react-bootstrap/Button';
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import ParkTable from 'main/components/Parks/ParkTable';
+import { parkUtils } from 'main/utils/parkUtils';
+import { useNavigate, Link } from 'react-router-dom';
 &nbsp;
-export default function AppNavbarLocalhost({url}) {
-  return (
-    &lt;&gt;
-      &lt;Navbar expand="sm" bg="warning" sticky="top" data-testid="AppNavbarLocalhost"&gt;
-        &lt;Container&gt;
-          &lt;Navbar.Brand href="http://localhost:8080"&gt;
-            Warning
-          &lt;/Navbar.Brand&gt;
+export default function <span class="fstat-no" title="function not covered" >ParkIndexPage(</span>) {
 &nbsp;
-          &lt;Navbar.Toggle /&gt;
+    const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
 &nbsp;
-          &lt;Navbar.Collapse className="justify-content-between"&gt;
+    const parkCollection = <span class="cstat-no" title="statement not covered" >parkUtils.get();</span>
+    const parks = <span class="cstat-no" title="statement not covered" >parkCollection.parks;</span>
 &nbsp;
-            &lt;Nav className="mr-auto text-center"&gt;
-              &lt;Nav.Item className="text-center"&gt;
-                &lt;p&gt;
-                  Running on &lt;code&gt;{ url }&lt;/code&gt; with no backend.&lt;br /&gt;
-                  You probably want &lt;a href="http://localhost:8080"&gt;http://localhost:8080&lt;/a&gt; instead.
-                &lt;/p&gt;
-              &lt;/Nav.Item&gt;
-            &lt;/Nav&gt;
-            &lt;/Navbar.Collapse&gt;
-        &lt;/Container&gt;
-      &lt;/Navbar &gt;
-    &lt;/&gt;
-  );
+    const showCell = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(c</span>ell) =&gt; <span class="cstat-no" title="statement not covered" >JSON.stringify(cell.row.values);</span></span>
+&nbsp;
+    const deleteCallback = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync (cell) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        console.log(`ParkIndexPage deleteCallback: ${showCell(cell)})`);</span>
+<span class="cstat-no" title="statement not covered" >        parkUtils.del(cell.row.values.id);</span>
+<span class="cstat-no" title="statement not covered" >        navigate("/parks");</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return (</span>
+        &lt;BasicLayout&gt;
+            &lt;div className="pt-2"&gt;
+                &lt;Button style={{ float: "right" }} as={Link} to="/parks/create"&gt;
+                    Create Park
+                &lt;/Button&gt;
+                &lt;h1&gt;Parks&lt;/h1&gt;
+                &lt;ParkTable parks={parks} deleteCallback={deleteCallback} /&gt;
+            &lt;/div&gt;
+        &lt;/BasicLayout&gt;
+    )
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
