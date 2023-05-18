@@ -1,9 +1,9 @@
 import React from 'react';
 
-import SchoolCreatePage from "main/pages/School/SchoolCreatePage";
+import SchoolCreatePage from "main/pages/Schools/SchoolCreatePage";
 
 export default {
-    title: 'pages/School/SchoolCreatePage',
+    title: 'pages/Schools/SchoolCreatePage',
     component: SchoolCreatePage
 };
 

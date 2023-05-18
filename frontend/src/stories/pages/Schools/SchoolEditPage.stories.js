@@ -1,10 +1,10 @@
 
 import React from 'react';
 
-import SchoolEditPage from "main/pages/School/SchoolEditPage";
+import SchoolEditPage from "main/pages/Schools/SchoolEditPage";
 
 export default {
-    title: 'pages/School/SchoolEditPage',
+    title: 'pages/Schools/SchoolEditPage',
     component: SchoolEditPage
 };
 

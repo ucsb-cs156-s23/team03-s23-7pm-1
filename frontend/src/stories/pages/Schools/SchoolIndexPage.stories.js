@@ -1,10 +1,10 @@
 
 import React from 'react';
 
-import SchoolIndexPage from "main/pages/School/SchoolIndexPage";
+import SchoolIndexPage from "main/pages/Schools/SchoolIndexPage";
 
 export default {
-    title: 'pages/School/SchoolIndexPage',
+    title: 'pages/Schools/SchoolIndexPage',
     component: SchoolIndexPage
 };
 
