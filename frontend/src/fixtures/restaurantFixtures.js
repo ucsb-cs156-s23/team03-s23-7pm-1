@@ -4,11 +4,8 @@ const restaurantFixtures = {
       {
        "id": 1,
         "name": "The Habit",
-        "address": "888 Embarcadero del Norte",
-        "city": "Isla Vista",
-        "state": "CA",
-        "zip": "93117",
-        "description": "Burgers and Fries"      
+        "cuisine": "american",
+        "roach counter": "5"     
       }
     ],
 
@@ -17,31 +14,22 @@ const restaurantFixtures = {
         {
             "id": 2,
              "name": "Cristino's Bakery",
-             "address": "170 Aero Camino",
-             "city": "Goleta",
-             "state": "CA",
-             "zip": "93117",
-             "description": "This place is takeout only.  It may look mostly like a bakery with Mexican pastries, but it also has amazing burritos and tacos",      
+             "cuisine": "pastries",
+             "roach counter": "2"      
         },
 
         {
             "id": 3,
              "name": "Freebirds",
-             "address": "879 Embarcadero del Norte",
-             "city": "Isla Vista",
-             "state": "CA",
-             "zip": "93117",
-             "description": "Burrito joint, and iconic Isla Vista location"  
+             "cuisine": "mexican",
+             "roach counter": "1"  
         },
 
         {
             "id": 4,
              "name": "Ca' Dario Cucina Italiana",
-             "address": "250 Storke Rd #B",
-             "city": "Goleta",
-             "state": "CA",
-             "zip": "93117",
-             "description": "White tablecloth Italian restaurant, with great pasta and pizza"      
+             "cuisine": "italian",
+             "roach counter": "3"     
         },
         
     ]

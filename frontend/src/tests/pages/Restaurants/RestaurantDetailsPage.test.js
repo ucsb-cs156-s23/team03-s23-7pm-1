@@ -25,9 +25,10 @@ jest.mock('main/utils/restaurantUtils', () => {
             getById: (_id) => {
                 return {
                     restaurant: {
-                        id: 3,
-                        name: "Freebirds",
-                        description: "Burritos"
+                        "id": 3,
+                        "name": "Freebirds",
+                        "cuisine": "mexican",
+                        "roach counter": "1"
                     }
                 }
             }
@@ -62,7 +63,7 @@ describe("RestaurantDetailsPage tests", () => {
             </QueryClientProvider>
         );
         expect(screen.getByText("Freebirds")).toBeInTheDocument();
-        expect(screen.getByText("Burritos")).toBeInTheDocument();
+        expect(screen.getByText("mexican")).toBeInTheDocument();
 
         expect(screen.queryByText("Delete")).not.toBeInTheDocument();
         expect(screen.queryByText("Edit")).not.toBeInTheDocument();

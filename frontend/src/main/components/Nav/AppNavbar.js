@@ -88,7 +88,7 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
               {
                 hasRole(currentUser, "ROLE_USER") && (
                   <NavDropdown title="Parks" id="appnavbar-parks-dropdown" data-testid="appnavbar-parks-dropdown" >
-                    <NavDropdown.Item href="/parks/list" data-testid="appnavbar-parks-list">List</NavDropdown.Item>
+                    <NavDropdown.Item href="/parks/" data-testid="appnavbar-parks-list">List</NavDropdown.Item>
                     {
                       hasRole(currentUser, "ROLE_ADMIN") && (
                         <NavDropdown.Item href="/parks/create" data-testid="appnavbar-parks-create">Create</NavDropdown.Item>
@@ -100,15 +100,11 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
             </Nav>
 
             <Nav className="mr-auto">
-              {
+            {
                 hasRole(currentUser, "ROLE_USER") && (
                   <NavDropdown title="Restaurants" id="appnavbar-restaurants-dropdown" data-testid="appnavbar-restaurants-dropdown" >
-                    <NavDropdown.Item href="/restaurants/list" data-testid="appnavbar-restaurants-list">List</NavDropdown.Item>
-                    {
-                      hasRole(currentUser, "ROLE_ADMIN") && (
-                        <NavDropdown.Item href="/restaurants/create" data-testid="appnavbar-restaurants-create">Create</NavDropdown.Item>
-                      )
-                    }
+                    <NavDropdown.Item href="/restaurants" data-testid="appnavbar-restaurants-list">List Restaurants</NavDropdown.Item>
+                    <NavDropdown.Item href="/restaurants/create" data-testid="appnavbar-restaurants-create">Create Restaurants</NavDropdown.Item>
                   </NavDropdown>
                 )
               }

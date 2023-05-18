@@ -39,9 +39,10 @@ describe("RestaurantCreatePage tests", () => {
 
         mockAdd.mockReturnValue({
             "restaurant": {
-                id: 3,
-                name: "South Coast Deli",
-                description: "Sandwiches and Salads"
+                "id": 3,
+                "name": "South Coast Deli",
+                "cuisine": "Sandwiches and Salads",
+                "roach counter":"1"
             }
         });
 
@@ -57,15 +58,20 @@ describe("RestaurantCreatePage tests", () => {
         expect(nameInput).toBeInTheDocument();
 
 
-        const descriptionInput = screen.getByLabelText("Description");
-        expect(descriptionInput).toBeInTheDocument();
+        const cuisineInput = screen.getByLabelText("Cuisine");
+        expect(cuisineInput).toBeInTheDocument();
+
+        const roachcounterInput = screen.getByLabelText("Roach Counter");
+        expect(roachcounterInput).toBeInTheDocument();
 
         const createButton = screen.getByText("Create");
         expect(createButton).toBeInTheDocument();
 
         
         fireEvent.change(nameInput, { target: { value: 'South Coast Deli' } })
-        fireEvent.change(descriptionInput, { target: { value: 'Sandwiches and Salads' } })
+        fireEvent.change(cuisineInput, { target: { value: 'Sandwiches and Salads' } })
+        fireEvent.change(roachcounterInput, { target: { value: '1' } })
+
         fireEvent.click(createButton);
     
         await waitFor(() => expect(mockAdd).toHaveBeenCalled());
@@ -74,7 +80,7 @@ describe("RestaurantCreatePage tests", () => {
         // assert - check that the console.log was called with the expected message
         expect(console.log).toHaveBeenCalled();
         const message = console.log.mock.calls[0][0];
-        const expectedMessage =  `createdRestaurant: {"restaurant":{"id":3,"name":"South Coast Deli","description":"Sandwiches and Salads"}`
+        const expectedMessage =  `createdRestaurant: {"restaurant":{"id":3,"name":"South Coast Deli","cuisine":"Sandwiches and Salads","roach counter":"1"}`
 
         expect(message).toMatch(expectedMessage);
         restoreConsole();
