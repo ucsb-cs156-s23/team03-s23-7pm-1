@@ -83,6 +83,24 @@ describe("AppNavbar tests", () => {
         await findByTestId("appnavbar-todos-dropdown");
     });
 
+    test("renders the schools menu correctly", async () => {
+
+        const currentUser = currentUserFixtures.userOnly;
+        const systemInfo = systemInfoFixtures.showingBoth;
+
+        const doLogin = jest.fn();
+
+        const {getByTestId, findByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <AppNavbar currentUser={currentUser} systemInfo={systemInfo} doLogin={doLogin} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await findByTestId("appnavbar-schools-dropdown");
+    });
+
     test("renders the AppNavbarLocalhost when on http://localhost:3000", async () => {
 
         const currentUser = currentUserFixtures.userOnly;
