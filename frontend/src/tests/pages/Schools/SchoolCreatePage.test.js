@@ -66,12 +66,12 @@ describe("SchoolCreatePage tests", () => {
         const createButton = screen.getByText("Create");
         expect(createButton).toBeInTheDocument();
 
-        await act(async () => {
-            fireEvent.change(nameInput, { target: { value: 'Dos Pueblos High School' } })
-            fireEvent.change(districtInput, { target: { value: 'Santa Barbara Unified School District' } })
-            fireEvent.change(graderangeInput, { target: { value: '9-12' } })
-            fireEvent.click(createButton);
-        });
+       
+        fireEvent.change(nameInput, { target: { value: 'Dos Pueblos High School' } })
+        fireEvent.change(districtInput, { target: { value: 'Santa Barbara Unified School District' } })
+        fireEvent.change(graderangeInput, { target: { value: '9-12' } })
+        fireEvent.click(createButton);
+        
 
         await waitFor(() => expect(mockAdd).toHaveBeenCalled());
         await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith("/schools"));
