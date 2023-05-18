@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/Schools/SchoolForm.js</title>
+    <title>Code coverage report for components/Parks/ParkForm.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Schools</a> SchoolForm.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Parks</a> ParkForm.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -174,7 +174,12 @@
 <a name='L109'></a><a href='#L109'>109</a>
 <a name='L110'></a><a href='#L110'>110</a>
 <a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,6 +201,10 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -285,12 +294,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom';
 &nbsp;
-function SchoolForm({ initialContents, submitAction, buttonLabel = "Create" }) {
+function ParkForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 &nbsp;
     const navigate = useNavigate();
     
@@ -304,7 +314,7 @@ function SchoolForm({ initialContents, submitAction, buttonLabel = "Create" }) {
     );
     // Stryker enable all
    
-    const testIdPrefix = "SchoolForm";
+    const testIdPrefix = "ParkForm";
 &nbsp;
     return (
 &nbsp;
@@ -345,37 +355,41 @@ function SchoolForm({ initialContents, submitAction, buttonLabel = "Create" }) {
             &lt;/Form.Group&gt;
 &nbsp;
             &lt;Form.Group className="mb-3" &gt;
-                &lt;Form.Label htmlFor="district"&gt;District&lt;/Form.Label&gt;
+                &lt;Form.Label htmlFor="state"&gt;State&lt;/Form.Label&gt;
                 &lt;Form.Control
-                    data-testid={testIdPrefix + "-district"}
-                    id="district"
+                    data-testid={testIdPrefix + "-state"}
+                    id="state"
                     type="text"
-                    isInvalid={Boolean(errors.district)}
-                    {...register("district", {
-                        required: "District is required."
+                    isInvalid={Boolean(errors.state)}
+                    {...register("state", {
+                        required: "State is required.",
+                        maxLength : {
+                            value: 25,
+                            message: "Max length 25 characters"
+                        }
                     })}
                 /&gt;
                 &lt;Form.Control.Feedback type="invalid"&gt;
-                    {errors.district?.message}
+                    {errors.state?.message}
                 &lt;/Form.Control.Feedback&gt;
             &lt;/Form.Group&gt;
 &nbsp;
             &lt;Form.Group className="mb-3" &gt;
-                &lt;Form.Label htmlFor="grade range"&gt;Grade Range&lt;/Form.Label&gt;
+                &lt;Form.Label htmlFor="acres"&gt;Acres&lt;/Form.Label&gt;
                 &lt;Form.Control
-                    data-testid={testIdPrefix + "-grade range"}
-                    id="grade range"
-                    type="text"
-                    isInvalid={Boolean(errors.district)}
-                    {...register("grade range", {
-                        required: "Grade Range is required."
+                    data-testid={testIdPrefix + "-acres"}
+                    id="acres"
+                    type="number"
+                    isInvalid={Boolean(errors.state)}
+                    {...register("acres", {
+                        required: "Number of acres is required.",
+                        valueAsNumber: true,
                     })}
                 /&gt;
                 &lt;Form.Control.Feedback type="invalid"&gt;
-                    {errors.district?.message}
+                    {errors.acres?.message}
                 &lt;/Form.Control.Feedback&gt;
             &lt;/Form.Group&gt;
-&nbsp;
 &nbsp;
             &lt;Button
                 type="submit"
@@ -396,14 +410,15 @@ function SchoolForm({ initialContents, submitAction, buttonLabel = "Create" }) {
     )
 }
 &nbsp;
-export default SchoolForm;</pre></td></tr></table></pre>
+export default ParkForm;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed May 17 2023 23:31:12 GMT-0700 (Pacific Daylight Time)
+                at Wed May 17 2023 23:31:16 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
