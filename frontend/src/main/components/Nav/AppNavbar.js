@@ -66,13 +66,9 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
             <Nav className="mr-auto">
               {
                 hasRole(currentUser, "ROLE_USER") && (
-                  <NavDropdown title="UCSBDates" id="appnavbar-ucsbdates-dropdown" data-testid="appnavbar-ucsbdates-dropdown" >
-                    <NavDropdown.Item href="/ucsbdates/list" data-testid="appnavbar-ucsbdates-list">List</NavDropdown.Item>
-                    {
-                      hasRole(currentUser, "ROLE_ADMIN") && (
-                        <NavDropdown.Item href="/ucsbdates/create" data-testid="appnavbar-ucsbdates-create">Create</NavDropdown.Item>
-                      )
-                    }
+                  <NavDropdown title="Schools" id="appnavbar-schools-dropdown" data-testid="appnavbar-schools-dropdown" >
+                    <NavDropdown.Item href="/schools/">List Schools</NavDropdown.Item>
+                    <NavDropdown.Item href="/schools/create">Create Schools</NavDropdown.Item>
                   </NavDropdown>
                 )
               }
@@ -81,11 +77,11 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
             <Nav className="mr-auto">
               {
                 hasRole(currentUser, "ROLE_USER") && (
-                  <NavDropdown title="Schools" id="appnavbar-schools-dropdown" data-testid="appnavbar-schools-dropdown" >
-                    <NavDropdown.Item href="/schools/list" data-testid="appnavbar-schools-list">List</NavDropdown.Item>
+                  <NavDropdown title="UCSBDates" id="appnavbar-ucsbdates-dropdown" data-testid="appnavbar-ucsbdates-dropdown" >
+                    <NavDropdown.Item href="/ucsbdates/list" data-testid="appnavbar-ucsbdates-list">List</NavDropdown.Item>
                     {
                       hasRole(currentUser, "ROLE_ADMIN") && (
-                        <NavDropdown.Item href="/schools/create" data-testid="appnavbar-schools-create">Create</NavDropdown.Item>
+                        <NavDropdown.Item href="/ucsbdates/create" data-testid="appnavbar-ucsbdates-create">Create</NavDropdown.Item>
                       )
                     }
                   </NavDropdown>
