@@ -30,8 +30,7 @@ const parkFixtures = {
             "name": "Grand Teton National Park",
             "state": "Wyoming",
             "acres": 310044,
-        },
-
+        }
     ]
 };
 
