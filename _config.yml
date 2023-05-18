@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s23/team03-s23-7pm-1
 owner: ucsb-cs156-s23
 repo_name: team03-s23-7pm-1
-pull_requests: [{"author":{"id":"MDQ6VXNlcjYwMTI0ODcz","is_bot":false,"login":"b4k3s","name":""},"headRefName":"Christian-BringOverFrontendForParkFromTeam01","number":23,"title":"Bring over frontend for park from team01","url":"https://github.com/ucsb-cs156-s23/team03-s23-7pm-1/pull/23"},{"author":{"id":"MDQ6VXNlcjc3NTIxMjQ5","is_bot":false,"login":"cameron-barrett","name":"Cameron Barrett"},"headRefName":"Cameron-CopyBackendFilesFromTeam02","number":22,"title":"Cameron copy backend files from team02","url":"https://github.com/ucsb-cs156-s23/team03-s23-7pm-1/pull/22"}]
+pull_requests: [{"author":{"id":"MDQ6VXNlcjYwMTI0ODcz","is_bot":false,"login":"b4k3s","name":""},"headRefName":"Christian-BringOverFrontendForParkFromTeam01","number":23,"title":"Bring over frontend for park from team01","url":"https://github.com/ucsb-cs156-s23/team03-s23-7pm-1/pull/23"}]
