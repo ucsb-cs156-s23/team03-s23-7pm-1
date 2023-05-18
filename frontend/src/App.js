@@ -60,7 +60,7 @@ function App() {
         }
 
         {
-          hasRole(currentUser, "ROLE_ADMIN") && (
+          hasRole(currentUser, "ROLE_USER") && (
             <>
               <Route exact path="/parks/create" element={<ParkCreatePage />} />
               <Route exact path="/parks/edit/:id" element={<ParkEditPage />} />
