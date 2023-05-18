@@ -62,19 +62,14 @@ function App() {
         {
           hasRole(currentUser, "ROLE_USER") && (
             <>
-              <Route exact path="/schools/list" element={<SchoolIndexPage />} />
+              <Route exact path="/schools/" element={<SchoolIndexPage />} />
               <Route exact path="/schools/details/:id" element={<SchoolDetailsPage />} />
-            </>
-          )
-        }
-        {
-          hasRole(currentUser, "ROLE_ADMIN") && (
-            <>
               <Route exact path="/schools/edit/:id" element={<SchoolEditPage />} />
               <Route exact path="/schools/create" element={<SchoolCreatePage />} />
             </>
           )
         }
+        
 
       </Routes>
     </BrowserRouter>
