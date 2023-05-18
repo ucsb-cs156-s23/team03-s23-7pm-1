@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for utils/parkUtils.js</title>
+    <title>Code coverage report for utils/schoolUtils.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">utils</a> parkUtils.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">utils</a> schoolUtils.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -241,87 +241,87 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// get parks from local storage
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// get schools from local storage
 const get = () =&gt; {
-    const parkValue = localStorage.getItem("parks");
-    if (parkValue === undefined) {
-        const parkCollection = { nextId: 1, parks: [] }
-        return set(parkCollection);
+    const schoolValue = localStorage.getItem("schools");
+    if (schoolValue === undefined) {
+        const schoolCollection = { nextId: 1, schools: [] }
+        return set(schoolCollection);
     }
-    const parkCollection = JSON.parse(parkValue);
-    if (parkCollection === null) {
-        const parkCollection = { nextId: 1, parks: [] }
-        return set(parkCollection);
+    const schoolCollection = JSON.parse(schoolValue);
+    if (schoolCollection === null) {
+        const schoolCollection = { nextId: 1, schools: [] }
+        return set(schoolCollection);
     }
-    return parkCollection;
+    return schoolCollection;
 };
 &nbsp;
 const getById = (id) =&gt; {
     if (id === undefined) {
         return { "error": "id is a required parameter" };
     }
-    const parkCollection = get();
-    const parks = parkCollection.parks;
+    const schoolCollection = get();
+    const schools = schoolCollection.schools;
 &nbsp;
     /* eslint-disable-next-line eqeqeq */ // we really do want == here, not ===
-    const index = parks.findIndex((r) =&gt; r.id == id);
+    const index = schools.findIndex((r) =&gt; r.id == id);
     if (index === -1) {
-        return { "error": `park with id ${id} not found` };
+        return { "error": `school with id ${id} not found` };
     }
-    return { park: parks[index] };
+    return { school: schools[index] };
 }
 &nbsp;
-// set parks in local storage
-const set = (parkCollection) =&gt; {
-    localStorage.setItem("parks", JSON.stringify(parkCollection));
-    return parkCollection;
+// set schools in local storage
+const set = (schoolCollection) =&gt; {
+    localStorage.setItem("schools", JSON.stringify(schoolCollection));
+    return schoolCollection;
 };
 &nbsp;
-// add a park to local storage
-const add = (park) =&gt; {
-    const parkCollection = get();
-    park = { ...park, id: parkCollection.nextId };
-    parkCollection.nextId++;
-    parkCollection.parks.push(park);
-    set(parkCollection);
-    return park;
+// add a school to local storage
+const add = (school) =&gt; {
+    const schoolCollection = get();
+    school = { ...school, id: schoolCollection.nextId };
+    schoolCollection.nextId++;
+    schoolCollection.schools.push(school);
+    set(schoolCollection);
+    return school;
 };
 &nbsp;
-// update a park in local storage
-const update = (park) =&gt; {
-    const parkCollection = get();
+// update a school in local storage
+const update = (school) =&gt; {
+    const schoolCollection = get();
 &nbsp;
-    const parks = parkCollection.parks;
+    const schools = schoolCollection.schools;
 &nbsp;
     /* eslint-disable-next-line eqeqeq */ // we really do want == here, not ===
-    const index = parks.findIndex((r) =&gt; r.id == park.id);
+    const index = schools.findIndex((r) =&gt; r.id == school.id);
     if (index === -1) {
-        return { "error": `park with id ${park.id} not found` };
+        return { "error": `school with id ${school.id} not found` };
     }
-    parks[index] = park;
-    set(parkCollection);
-    return { parkCollection: parkCollection };
+    schools[index] = school;
+    set(schoolCollection);
+    return { schoolCollection: schoolCollection };
 };
 &nbsp;
-// delete a park from local storage
+// delete a school from local storage
 const del = (id) =&gt; {
     if (id === undefined) {
         return { "error": "id is a required parameter" };
     }
-    const parkCollection = get();
-    const parks = parkCollection.parks;
+    const schoolCollection = get();
+    const schools = schoolCollection.schools;
 &nbsp;
     /* eslint-disable-next-line eqeqeq */ // we really do want == here, not ===
-    const index = parks.findIndex((r) =&gt; r.id == id);
+    const index = schools.findIndex((r) =&gt; r.id == id);
     if (index === -1) {
-        return { "error": `park with id ${id} not found` };
+        return { "error": `school with id ${id} not found` };
     }
-    parks.splice(index, 1);
-    set(parkCollection);
-    return { parkCollection: parkCollection };
+    schools.splice(index, 1);
+    set(schoolCollection);
+    return { schoolCollection: schoolCollection };
 };
 &nbsp;
-const parkUtils = {
+const schoolUtils = {
     get,
     getById,
     add,
@@ -329,7 +329,7 @@ const parkUtils = {
     del
 };
 &nbsp;
-export { parkUtils };
+export { schoolUtils };
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -337,7 +337,7 @@ export { parkUtils };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed May 17 2023 23:41:55 GMT-0700 (Pacific Daylight Time)
+                at Wed May 17 2023 23:45:30 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../prettify.js"></script>
         <script>
