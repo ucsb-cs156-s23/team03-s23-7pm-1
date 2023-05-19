@@ -15,8 +15,8 @@ jest.mock('react-router-dom', () => ({
 describe("RestaurantTable tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["id", "Name", "Description"];
-  const expectedFields = ["id", "name", "description"];
+  const expectedHeaders = ["id", "Name", "Cuisine", "Roach Counter"];
+  const expectedFields = ["id", "name", "cuisine", "roach counter"];
   const testId = "RestaurantTable";
 
   test("showCell function works properly", () => {
@@ -141,7 +141,7 @@ describe("RestaurantTable tests", () => {
     // assert - check that the console.log was called with the expected message
     expect(console.log).toHaveBeenCalled();
     const message = console.log.mock.calls[0][0];
-    const expectedMessage = `editCallback: {"id":2,"name":"Cristino's Bakery","description":"This place is takeout only.  It may look mostly like a bakery with Mexican pastries, but it also has amazing burritos and tacos"})`;
+    const expectedMessage = `editCallback: {"id":2,"name":"Cristino's Bakery","cuisine":"pastries","roach counter":"2"})`;
     expect(message).toMatch(expectedMessage);
     restoreConsole();
   });
@@ -175,7 +175,7 @@ describe("RestaurantTable tests", () => {
     // assert - check that the console.log was called with the expected message
     expect(console.log).toHaveBeenCalled();
     const message = console.log.mock.calls[0][0];
-    const expectedMessage = `detailsCallback: {"id":2,"name":"Cristino's Bakery","description":"This place is takeout only.  It may look mostly like a bakery with Mexican pastries, but it also has amazing burritos and tacos"})`;
+    const expectedMessage = `detailsCallback: {"id":2,"name":"Cristino's Bakery","cuisine":"pastries","roach counter":"2"})`;
     expect(message).toMatch(expectedMessage);
     restoreConsole();
   });
@@ -206,7 +206,7 @@ describe("RestaurantTable tests", () => {
      // assert - check that the console.log was called with the expected message
      await(waitFor(() => expect(console.log).toHaveBeenCalled()));
      const message = console.log.mock.calls[0][0];
-     const expectedMessage = `deleteCallback: {"id":2,"name":"Cristino's Bakery","description":"This place is takeout only.  It may look mostly like a bakery with Mexican pastries, but it also has amazing burritos and tacos"})`;
+     const expectedMessage = `deleteCallback: {"id":2,"name":"Cristino's Bakery","cuisine":"pastries","roach counter":"2"})`;
      expect(message).toMatch(expectedMessage);
      restoreConsole();
   });

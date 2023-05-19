@@ -30,11 +30,8 @@ jest.mock('main/utils/restaurantUtils', () => {
                         {
                             "id": 3,
                             "name": "Freebirds",
-                            "address": "879 Embarcadero del Norte",
-                            "city": "Isla Vista",
-                            "state": "CA",
-                            "zip": "93117",
-                            "description": "Burrito joint, and iconic Isla Vista location"
+                            "cuisine": "mexican",
+                            "roach counter": "1"
                         },
                     ]
                 }
@@ -78,7 +75,7 @@ describe("RestaurantIndexPage tests", () => {
         const name = screen.getByText("Freebirds");
         expect(name).toBeInTheDocument();
 
-        const description = screen.getByText("Burrito joint, and iconic Isla Vista location");
+        const description = screen.getByText("mexican");
         expect(description).toBeInTheDocument();
 
         expect(screen.getByTestId("RestaurantTable-cell-row-0-col-Delete-button")).toBeInTheDocument();
@@ -101,7 +98,7 @@ describe("RestaurantIndexPage tests", () => {
         const name = screen.getByText("Freebirds");
         expect(name).toBeInTheDocument();
 
-        const description = screen.getByText("Burrito joint, and iconic Isla Vista location");
+        const description = screen.getByText("mexican");
         expect(description).toBeInTheDocument();
 
         const deleteButton = screen.getByTestId("RestaurantTable-cell-row-0-col-Delete-button");
@@ -118,7 +115,7 @@ describe("RestaurantIndexPage tests", () => {
         // assert - check that the console.log was called with the expected message
         expect(console.log).toHaveBeenCalled();
         const message = console.log.mock.calls[0][0];
-        const expectedMessage = `RestaurantIndexPage deleteCallback: {"id":3,"name":"Freebirds","description":"Burrito joint, and iconic Isla Vista location"}`;
+        const expectedMessage = `RestaurantIndexPage deleteCallback: {"id":3,"name":"Freebirds","cuisine":"mexican","roach counter":"1"}`;
         expect(message).toMatch(expectedMessage);
         restoreConsole();
 

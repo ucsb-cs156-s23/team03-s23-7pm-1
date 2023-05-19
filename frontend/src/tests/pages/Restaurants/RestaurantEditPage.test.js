@@ -23,9 +23,10 @@ jest.mock('main/utils/restaurantUtils', () => {
             getById: (_id) => {
                 return {
                     restaurant: {
-                        id: 3,
-                        name: "Freebirds",
-                        description: "Burritos"
+                        "id": 3,
+                        "name": "Freebirds",
+                        "cuisine": "mexican",
+                        "roach counter": "1"
                     }
                 }
             }
@@ -60,7 +61,9 @@ describe("RestaurantEditPage tests", () => {
 
         expect(screen.getByTestId("RestaurantForm-name")).toBeInTheDocument();
         expect(screen.getByDisplayValue('Freebirds')).toBeInTheDocument();
-        expect(screen.getByDisplayValue('Burritos')).toBeInTheDocument();
+        expect(screen.getByDisplayValue('mexican')).toBeInTheDocument();
+        expect(screen.getByDisplayValue('1')).toBeInTheDocument();
+
     });
 
     test("redirects to /restaurants on submit", async () => {
@@ -69,9 +72,10 @@ describe("RestaurantEditPage tests", () => {
 
         mockUpdate.mockReturnValue({
             "restaurant": {
-                id: 3,
-                name: "South Coast Deli (Goleta)",
-                description: "Sandwiches, Salads and more"
+                "id": 3,
+                "name": "South Coast Deli (Goleta)",
+                "cuisine": "Sandwiches, Salads and more",
+                "roach counter": "1"
             }
         });
 
@@ -87,15 +91,20 @@ describe("RestaurantEditPage tests", () => {
         expect(nameInput).toBeInTheDocument();
 
 
-        const descriptionInput = screen.getByLabelText("Description");
-        expect(descriptionInput).toBeInTheDocument();
+        const cuisineInput = screen.getByLabelText("Cuisine");
+        expect(cuisineInput).toBeInTheDocument();
+
+        const roachcounterInput = screen.getByLabelText("Roach Counter");
+        expect(cuisineInput).toBeInTheDocument();
 
         const updateButton = screen.getByText("Update");
         expect(updateButton).toBeInTheDocument();
 
 
         fireEvent.change(nameInput, { target: { value: 'South Coast Deli (Goleta)' } })
-        fireEvent.change(descriptionInput, { target: { value: 'Sandwiches, Salads and more' } })
+        fireEvent.change(cuisineInput, { target: { value: 'Sandwiches, Salads and more' } })
+        fireEvent.change(roachcounterInput, { target: { value: '1' } })
+
         fireEvent.click(updateButton);
 
 
@@ -105,7 +114,7 @@ describe("RestaurantEditPage tests", () => {
         // assert - check that the console.log was called with the expected message
         expect(console.log).toHaveBeenCalled();
         const message = console.log.mock.calls[0][0];
-        const expectedMessage =  `updatedRestaurant: {"restaurant":{"id":3,"name":"South Coast Deli (Goleta)","description":"Sandwiches, Salads and more"}`
+        const expectedMessage =  `updatedRestaurant: {"restaurant":{"id":3,"name":"South Coast Deli (Goleta)","cuisine":"Sandwiches, Salads and more","roach counter":"1"}`
 
         expect(message).toMatch(expectedMessage);
         restoreConsole();

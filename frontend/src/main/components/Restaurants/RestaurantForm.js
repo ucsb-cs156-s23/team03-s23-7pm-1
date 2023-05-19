@@ -58,14 +58,30 @@ function RestaurantForm({ initialContents, submitAction, buttonLabel = "Create" 
             </Form.Group>
 
             <Form.Group className="mb-3" >
-                <Form.Label htmlFor="description">Description</Form.Label>
+                <Form.Label htmlFor="cuisine">Cuisine</Form.Label>
                 <Form.Control
-                    data-testid={testIdPrefix + "-description"}
-                    id="description"
+                    data-testid={testIdPrefix + "-cuisine"}
+                    id="cuisine"
                     type="text"
                     isInvalid={Boolean(errors.description)}
-                    {...register("description", {
-                        required: "Description is required."
+                    {...register("cuisine", {
+                        required: "Cuisine is required."
+                    })}
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.description?.message}
+                </Form.Control.Feedback>  
+            </Form.Group>
+
+            <Form.Group className="mb-3" >
+                <Form.Label htmlFor="roach counter">Roach Counter</Form.Label>
+                <Form.Control
+                    data-testid={testIdPrefix + "-roach counter"}
+                    id="roach counter"
+                    type="text"
+                    isInvalid={Boolean(errors.description)}
+                    {...register("roach counter", {
+                        required: "Roach Counter is required."
                     })}
                 />
                 <Form.Control.Feedback type="invalid">

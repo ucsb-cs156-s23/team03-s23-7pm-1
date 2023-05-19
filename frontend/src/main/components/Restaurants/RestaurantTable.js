@@ -40,8 +40,12 @@ export default function RestaurantTable({
             accessor: 'name',
         },
         {
-            Header: 'Description',
-            accessor: 'description',
+            Header: 'Cuisine',
+            accessor: 'cuisine',
+        },
+        {
+            Header: 'Roach Counter',
+            accessor: 'roach counter',
         }
     ];
 
