@@ -60,7 +60,7 @@ export default function RestaurantCreatePage() {
   }
 
   if (isSuccess) {
-    return <Navigate to="/reatuarants/" />
+    return <Navigate to="/restaurants/" />
   }
 
   return (

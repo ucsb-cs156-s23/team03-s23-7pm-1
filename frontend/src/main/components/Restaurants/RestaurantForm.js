@@ -1,37 +1,36 @@
 import React from 'react'
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
-function RestaurantForm({ initialContents, submitAction, buttonLabel = "Create" }) {
 
-    const navigate = useNavigate();
-    
+function RestaurantForm({ initialRestaurant, submitAction, buttonLabel="Create" }) {
+
     // Stryker disable all
     const {
         register,
         formState: { errors },
         handleSubmit,
     } = useForm(
-        { defaultValues: initialContents || {}, }
+        { defaultValues: initialRestaurant || {}, }
     );
     // Stryker enable all
-   
-    const testIdPrefix = "RestaurantForm";
+
+    const navigate = useNavigate();
 
     return (
 
         <Form onSubmit={handleSubmit(submitAction)}>
 
-            {initialContents && (
+            {initialRestaurant && (
                 <Form.Group className="mb-3" >
                     <Form.Label htmlFor="id">Id</Form.Label>
                     <Form.Control
-                        data-testid={testIdPrefix + "-id"}
+                        data-testid="RestaurantForm-id"
                         id="id"
                         type="text"
                         {...register("id")}
-                        value={initialContents.id}
+                        value={initialRestaurant.id}
                         disabled
                     />
                 </Form.Group>
@@ -40,16 +39,12 @@ function RestaurantForm({ initialContents, submitAction, buttonLabel = "Create" 
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="name">Name</Form.Label>
                 <Form.Control
-                    data-testid={testIdPrefix + "-name"}
+                    data-testid="RestaurantForm-name"
                     id="name"
                     type="text"
                     isInvalid={Boolean(errors.name)}
                     {...register("name", {
-                        required: "Name is required.",
-                        maxLength : {
-                            value: 30,
-                            message: "Max length 30 characters"
-                        }
+                        required: "Name is required."
                     })}
                 />
                 <Form.Control.Feedback type="invalid">
@@ -60,46 +55,46 @@ function RestaurantForm({ initialContents, submitAction, buttonLabel = "Create" 
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="cuisine">Cuisine</Form.Label>
                 <Form.Control
-                    data-testid={testIdPrefix + "-cuisine"}
+                    data-testid="RestaurantForm-cuisine"
                     id="cuisine"
                     type="text"
-                    isInvalid={Boolean(errors.description)}
-                    {...register("cuisine", {
+                    isInvalid={Boolean(errors.cuisine)}
+                    {...register("cuisine", { 
                         required: "Cuisine is required."
                     })}
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.description?.message}
-                </Form.Control.Feedback>  
+                    {errors.cuisine && 'Cuisine is required. '}
+                </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" >
                 <Form.Label htmlFor="roachCounter">Roach Counter</Form.Label>
                 <Form.Control
-                    data-testid={testIdPrefix + "-roachCounter"}
+                    data-testid="RestaurantForm-roachCounter"
                     id="roachCounter"
-                    type="text"
-                    isInvalid={Boolean(errors.description)}
-                    {...register("roachCounter", {
-                        required: "Roach Counter is required."
+                    type="number"
+                    isInvalid={Boolean(errors.roachCounter)}
+                    {...register("roachCounter", { 
+                        required: "Roach counter is required.", 
+                        valueAsNumber: true
                     })}
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.description?.message}
+                    {errors.roachCounter && 'Roach counter is required.'}
                 </Form.Control.Feedback>
             </Form.Group>
 
-
             <Button
                 type="submit"
-                data-testid={testIdPrefix + "-submit"}
+                data-testid="RestaurantForm-submit"
             >
                 {buttonLabel}
             </Button>
             <Button
                 variant="Secondary"
                 onClick={() => navigate(-1)}
-                data-testid={testIdPrefix + "-cancel"}
+                data-testid="RestaurantForm-cancel"
             >
                 Cancel
             </Button>
