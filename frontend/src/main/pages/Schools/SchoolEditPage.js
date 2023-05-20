@@ -1,30 +1,69 @@
-
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import { useParams } from "react-router-dom";
-import { schoolUtils }  from 'main/utils/schoolUtils';
-import SchoolForm from 'main/components/Schools/SchoolForm';
-import { useNavigate } from 'react-router-dom'
-
+import SchoolForm from "main/components/Schools/SchoolForm";
+import { Navigate } from 'react-router-dom'
+import { useBackend, useBackendMutation } from "main/utils/useBackend";
+import { toast } from "react-toastify";
 
 export default function SchoolEditPage() {
-    let { id } = useParams();
+  let { id } = useParams();
 
-    let navigate = useNavigate(); 
+  const { data: school, _error, _status } =
+    useBackend(
+      // Stryker disable next-line all : don't test internal caching of React Query
+      [`/api/school?id=${id}`],
+      {  // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
+        method: "GET",
+        url: `/api/school`,
+        params: {
+          id
+        }
+      }
+    );
 
-    const response = schoolUtils.getById(id);
 
-    const onSubmit = async (school) => {
-        const updatedSchool = schoolUtils.update(school);
-        console.log("updatedSchool: " + JSON.stringify(updatedSchool));
-        navigate("/schools");
-    }  
+  const objectToAxiosPutParams = (school) => ({
+    url: "/api/school",
+    method: "PUT",
+    params: {
+      id: school.id,
+    },
+    data: {
+      name: school.name,
+      district: school.district,
+      graderange: school.graderange
+    }
+  });
 
-    return (
-        <BasicLayout>
-            <div className="pt-2">
-                <h1>Edit School</h1>
-                <SchoolForm submitAction={onSubmit} buttonLabel={"Update"} initialContents={response.school}/>
-            </div>
-        </BasicLayout>
-    )
+  const onSuccess = (school) => {
+    toast(`School Updated - id: ${school.id} name: ${school.name}`);
+  }
+
+  const mutation = useBackendMutation(
+    objectToAxiosPutParams,
+    { onSuccess },
+    // Stryker disable next-line all : hard to set up test for caching
+    [`/api/school?id=${id}`]
+  );
+
+  const { isSuccess } = mutation
+
+  const onSubmit = async (data) => {
+    mutation.mutate(data);
+  }
+
+  if (isSuccess) {
+    return <Navigate to="/school/" />
+  }
+
+  return (
+    <BasicLayout>
+      <div className="pt-2">
+        <h1>Edit School</h1>
+        {school &&
+          <SchoolForm initialContents={school} submitAction={onSubmit} buttonLabel="Update" />
+        }
+      </div>
+    </BasicLayout>
+  )
 }
