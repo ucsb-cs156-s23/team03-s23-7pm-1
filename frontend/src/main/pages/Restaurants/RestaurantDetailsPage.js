@@ -37,20 +37,15 @@ export default function RestaurantDetailsPage() {
     useBackend(
       // Stryker disable next-line all : don't test internal caching of React Query
       [`/api/restaurants?id=${id}`],
-      {  // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
-        method: "GET",
-        url: `/api/restaurants`,
-        params: {
-          id
-        }
-      }
+      { method: "GET", url: "/api/restaurants", params: {id}}, []
+      
     );
 
   return (
     <BasicLayout>
       <div className="pt-2">
         <h1>Restaurant Details</h1>
-        <RestaurantTable restaurants={[restaurant]} currentUser={currentUser} />
+        <RestaurantTable restaurants={[restaurant]}  currentUser={currentUser} showButtons={false} />
       </div>
     </BasicLayout>
   )

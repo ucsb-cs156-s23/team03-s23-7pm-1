@@ -78,7 +78,7 @@ import { hasRole } from "main/utils/currentUser";
 
 //const showCell = (cell) => JSON.stringify(cell.row.values);
 
-export default function RestaurantTable({ restaurants, currentUser }) {
+export default function RestaurantTable({ restaurants, currentUser, showButtons=true }) {
 
     const navigate = useNavigate();
 
@@ -122,7 +122,7 @@ export default function RestaurantTable({ restaurants, currentUser }) {
         }
     ];
 
-    if (hasRole(currentUser, "ROLE_ADMIN")) {
+    if (hasRole(currentUser, "ROLE_ADMIN")  && showButtons) {
         columns.push(ButtonColumn("Details", "primary", detailsCallback, "RestaurantTable"));
         columns.push(ButtonColumn("Edit", "primary", editCallback, "RestaurantTable"));
         columns.push(ButtonColumn("Delete", "danger", deleteCallback, "RestaurantTable"));
