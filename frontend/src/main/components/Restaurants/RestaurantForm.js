@@ -74,13 +74,13 @@ function RestaurantForm({ initialContents, submitAction, buttonLabel = "Create" 
             </Form.Group>
 
             <Form.Group className="mb-3" >
-                <Form.Label htmlFor="roach counter">Roach Counter</Form.Label>
+                <Form.Label htmlFor="roachCounter">Roach Counter</Form.Label>
                 <Form.Control
-                    data-testid={testIdPrefix + "-roach counter"}
-                    id="roach counter"
+                    data-testid={testIdPrefix + "-roachCounter"}
+                    id="roachCounter"
                     type="text"
                     isInvalid={Boolean(errors.description)}
-                    {...register("roach counter", {
+                    {...register("roachCounter", {
                         required: "Roach Counter is required."
                     })}
                 />

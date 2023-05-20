@@ -59,7 +59,7 @@ public class RestaurantsController extends ApiController {
             @ApiParam("name") @RequestParam String name,
             @ApiParam("cuisine") @RequestParam String cuisine,
             @ApiParam("roachCounter") @RequestParam int roachCounter)
-            //throws JsonProcessingException 
+            throws JsonProcessingException 
             {
 
 
