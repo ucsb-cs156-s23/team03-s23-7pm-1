@@ -1,24 +1,20 @@
-import React from 'react'
-import Button from 'react-bootstrap/Button';
+import React from "react";
+import { useBackend } from "main/utils/useBackend";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import ParkTable from 'main/components/Parks/ParkTable';
-import { parkUtils } from 'main/utils/parkUtils';
-import { useNavigate, Link } from 'react-router-dom';
+import ParkTable from "main/components/Parks/ParkTable";
+import { useCurrentUser } from "main/utils/currentUser";
+import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
 export default function ParkIndexPage() {
+    const currentUser = useCurrentUser();
 
-    const navigate = useNavigate();
-
-    const parkCollection = parkUtils.get();
-    const parks = parkCollection.parks;
-
-    const showCell = (cell) => JSON.stringify(cell.row.values);
-
-    const deleteCallback = async (cell) => {
-        console.log(`ParkIndexPage deleteCallback: ${showCell(cell)})`);
-        parkUtils.del(cell.row.values.id);
-        navigate("/parks");
-    }
+    const { data: parks, error: _error, status: _status, } = useBackend(
+        // Stryker disable next-line all : don't test internal caching of React Query
+        ["/api/parks/all"],
+        { method: "GET", url: "/api/parks/all" },
+        []
+    );
 
     return (
         <BasicLayout>
@@ -27,8 +23,8 @@ export default function ParkIndexPage() {
                     Create Park
                 </Button>
                 <h1>Parks</h1>
-                <ParkTable parks={parks} deleteCallback={deleteCallback} />
+                <ParkTable parks={parks} currentUser={currentUser} />
             </div>
         </BasicLayout>
-    )
+    );
 }
