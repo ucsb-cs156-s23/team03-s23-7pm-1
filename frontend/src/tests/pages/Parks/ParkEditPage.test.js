@@ -67,8 +67,8 @@ describe("ParkEditPage tests", () => {
         beforeEach(() => {
             axiosMock.reset();
             axiosMock.resetHistory();
-            axiosMock .onGet("/api/currentUser") .reply(200, apiCurrentUserFixtures.userOnly);
-            axiosMock .onGet("/api/systemInfo") .reply(200, systemInfoFixtures.showingNeither);
+            axiosMock .onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+            axiosMock .onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
             axiosMock.onGet("/api/parks", { params: { id: 3 } }).timeout();
         });
         const queryClient = new QueryClient();
@@ -94,8 +94,8 @@ describe("ParkEditPage tests", () => {
         beforeEach(() => {
             axiosMock.reset();
             axiosMock.resetHistory();
-            axiosMock .onGet("/api/currentUser") .reply(200, apiCurrentUserFixtures.userOnly);
-            axiosMock .onGet("/api/systemInfo") .reply(200, systemInfoFixtures.showingNeither);
+            axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+            axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
             axiosMock.onGet("/api/parks", { params: { id: 3 } }).reply(200, {
                 id: 3,
                 name: "Grand Teton National Park",
