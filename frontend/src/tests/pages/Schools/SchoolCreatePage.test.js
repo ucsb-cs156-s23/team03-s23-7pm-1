@@ -60,7 +60,7 @@ describe("SchoolCreatePage tests", () => {
             graderange: "9-12"
         };
 
-        axiosMock.onPost("/api/school/post").reply( 202, school );
+        axiosMock.onPost("/api/schools/post").reply( 202, school );
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
@@ -97,7 +97,7 @@ describe("SchoolCreatePage tests", () => {
         });
 
         expect(mockToast).toBeCalledWith("New school Created - id: 17 name: Dos Pueblos High School");
-        expect(mockNavigate).toBeCalledWith({ "to": "/school/list" });
+        expect(mockNavigate).toBeCalledWith({ "to": "/schools/" });
     });
 
 

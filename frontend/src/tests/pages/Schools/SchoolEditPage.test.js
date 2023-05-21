@@ -44,7 +44,7 @@ describe("SchoolEditPage tests", () => {
             axiosMock.resetHistory();
             axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-            axiosMock.onGet("/api/school", { params: { id: 17 } }).timeout();
+            axiosMock.onGet("/api/schools", { params: { id: 17 } }).timeout();
         });
 
         const queryClient = new QueryClient();
@@ -74,13 +74,13 @@ describe("SchoolEditPage tests", () => {
             axiosMock.resetHistory();
             axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
             axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-            axiosMock.onGet("/api/school", { params: { id: 17 } }).reply(200, {
+            axiosMock.onGet("/api/schools", { params: { id: 17 } }).reply(200, {
                 id: 17,
                 name: 'Isla Vista Elementary School',
                 district: "Goleta Union School District",
                 graderange: "K-6"
             });
-            axiosMock.onPut('/api/school').reply(200, {
+            axiosMock.onPut('/api/schools').reply(200, {
                 id: "17",
                 name: 'Carpinteria High School',
                 district: "Carpinteria Unified School District",
@@ -158,7 +158,7 @@ describe("SchoolEditPage tests", () => {
 
             await waitFor(() => expect(mockToast).toBeCalled);
             expect(mockToast).toBeCalledWith("School Updated - id: 17 name: Carpinteria High School");
-            expect(mockNavigate).toBeCalledWith({ "to": "/school/" });
+            expect(mockNavigate).toBeCalledWith({ "to": "/schools/" });
 
             expect(axiosMock.history.put.length).toBe(1); // times called
             expect(axiosMock.history.put[0].params).toEqual({ id: 17 });

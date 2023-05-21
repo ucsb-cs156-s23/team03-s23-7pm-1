@@ -5,11 +5,10 @@ import { Navigate/*, useNavigate */ } from 'react-router-dom'
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-const graderange = 'grade range'
 export default function SchoolCreatePage() {
  
   const objectToAxiosParams = (school) => ({
-    url: "/api/school/post",
+    url: "/api/schools/post",
     method: "POST",
     params: {
       name: school.name,
@@ -26,7 +25,7 @@ export default function SchoolCreatePage() {
     objectToAxiosParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    ["/api/school/all"]
+    ["/api/schools/all"]
   );
 
   const { isSuccess } = mutation
@@ -36,7 +35,7 @@ export default function SchoolCreatePage() {
   }
 
   if (isSuccess) {
-    return <Navigate to="/school/list" />
+    return <Navigate to="/schools/" />
   }
 
   return (

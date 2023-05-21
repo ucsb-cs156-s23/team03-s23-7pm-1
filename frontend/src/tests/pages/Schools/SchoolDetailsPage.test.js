@@ -35,7 +35,7 @@ describe("SchoolDetailsPage tests", () => {
         axiosMock.resetHistory();
         axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
-        axiosMock.onGet("/api/school", { params: { id: 3 } }).reply(200, {
+        axiosMock.onGet("/api/schools", { params: { id: 3 } }).reply(200, {
             id: 3,
             name: 'Goleta Valley Junior High School',
             district: "Santa Barbara Unified School District",

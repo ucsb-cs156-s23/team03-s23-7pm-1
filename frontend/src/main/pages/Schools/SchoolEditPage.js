@@ -11,10 +11,10 @@ export default function SchoolEditPage() {
   const { data: school, _error, _status } =
     useBackend(
       // Stryker disable next-line all : don't test internal caching of React Query
-      [`/api/school?id=${id}`],
+      [`/api/schools?id=${id}`],
       {  // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
         method: "GET",
-        url: `/api/school`,
+        url: `/api/schools`,
         params: {
           id
         }
@@ -23,7 +23,7 @@ export default function SchoolEditPage() {
 
 
   const objectToAxiosPutParams = (school) => ({
-    url: "/api/school",
+    url: "/api/schools",
     method: "PUT",
     params: {
       id: school.id,
@@ -43,7 +43,7 @@ export default function SchoolEditPage() {
     objectToAxiosPutParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    [`/api/school?id=${id}`]
+    [`/api/schools?id=${id}`]
   );
 
   const { isSuccess } = mutation
@@ -53,7 +53,7 @@ export default function SchoolEditPage() {
   }
 
   if (isSuccess) {
-    return <Navigate to="/school/" />
+    return <Navigate to="/schools/" />
   }
 
   return (
