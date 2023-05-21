@@ -1,9 +1,10 @@
 import React from 'react'
 import { useBackend } from 'main/utils/useBackend';
-
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import RestaurantTable from 'main/components/Restaurants/RestaurantTable';
 import { useCurrentUser } from 'main/utils/currentUser'
+import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
 export default function RestaurantIndexPage() {
 
@@ -20,6 +21,9 @@ export default function RestaurantIndexPage() {
   return (
     <BasicLayout>
       <div className="pt-2">
+      <Button style={{ float: "right" }} as={Link} to="/restaurants/create">
+          Create Restaurant
+      </Button>
         <h1>Restaurants</h1>
         <RestaurantTable restaurants={restaurants} currentUser={currentUser} />
       </div>
