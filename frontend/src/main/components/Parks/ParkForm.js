@@ -83,6 +83,8 @@ function ParkForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                     data-testid={testIdPrefix + "-acres"}
                     id="acres"
                     type="number"
+                    min={0}
+                    max={999999999}
                     isInvalid={Boolean(errors.state)}
                     {...register("acres", {
                         required: "Number of acres is required.",
