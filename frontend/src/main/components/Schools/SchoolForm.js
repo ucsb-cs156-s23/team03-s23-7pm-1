@@ -85,7 +85,7 @@ function SchoolForm({ initialContents, submitAction, buttonLabel = "Create" }) {
                     })}
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.gradeRange && 'Grade range is required.'}
+                    {errors.gradeRange?.message}
                 </Form.Control.Feedback>
             </Form.Group>
 
