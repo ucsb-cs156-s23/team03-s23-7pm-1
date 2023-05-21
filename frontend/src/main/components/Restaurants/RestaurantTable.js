@@ -1,5 +1,4 @@
 //update to connect to backend
-
 import React from "react";
 import OurTable, { ButtonColumn } from "main/components/OurTable";
 import { useBackendMutation } from "main/utils/useBackend";
@@ -9,7 +8,7 @@ import { hasRole } from "main/utils/currentUser";
 
 const showCell = (cell) => JSON.stringify(cell.row.values);
 
-export default function RestaurtantTable({
+export default function RestaurantTable({
     restaurants,
     currentUser,
     showButtons = true,
