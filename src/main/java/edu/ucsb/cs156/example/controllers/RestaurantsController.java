@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-
 @Api(description = "Restaurants")
 @RequestMapping("/api/restaurants")
 @RestController
@@ -59,21 +58,16 @@ public class RestaurantsController extends ApiController {
             @ApiParam("name") @RequestParam String name,
             @ApiParam("cuisine") @RequestParam String cuisine,
             @ApiParam("roachCounter") @RequestParam int roachCounter)
-            //throws JsonProcessingException 
-            {
-
-
-
-     
+            throws JsonProcessingException {
 
         Restaurant restaurant = new Restaurant();
         restaurant.setName(name);
         restaurant.setCuisine(cuisine);
         restaurant.setRoachCounter(roachCounter);
 
-        Restaurant savedrestaurant = restaurantRepository.save(restaurant);
+        Restaurant savedRestaurant = restaurantRepository.save(restaurant);
 
-        return savedrestaurant;
+        return savedRestaurant;
     }
 
     @ApiOperation(value = "Delete a Restaurant")
@@ -98,6 +92,7 @@ public class RestaurantsController extends ApiController {
         Restaurant restaurant = restaurantRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Restaurant.class, id));
 
+        
         restaurant.setName(incoming.getName());
         restaurant.setCuisine(incoming.getCuisine());
         restaurant.setRoachCounter(incoming.getRoachCounter());

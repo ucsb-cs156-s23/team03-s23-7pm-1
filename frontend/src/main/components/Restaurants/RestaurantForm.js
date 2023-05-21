@@ -47,8 +47,8 @@ function RestaurantForm({ initialContents, submitAction, buttonLabel = "Create" 
                     {...register("name", {
                         required: "Name is required.",
                         maxLength : {
-                            value: 30,
-                            message: "Max length 30 characters"
+                            value: 50,
+                            message: "Max length 50 characters"
                         }
                     })}
                 />
@@ -63,32 +63,36 @@ function RestaurantForm({ initialContents, submitAction, buttonLabel = "Create" 
                     data-testid={testIdPrefix + "-cuisine"}
                     id="cuisine"
                     type="text"
-                    isInvalid={Boolean(errors.description)}
+                    isInvalid={Boolean(errors.cuisine)}
                     {...register("cuisine", {
-                        required: "Cuisine is required."
+                        required: "Cuisine is required.",
+                        maxLength : {
+                            value: 25,
+                            message: "Max length 25 characters"
+                        }
                     })}
                 />
                 <Form.Control.Feedback type="invalid">
-                    {errors.description?.message}
-                </Form.Control.Feedback>  
-            </Form.Group>
-
-            <Form.Group className="mb-3" >
-                <Form.Label htmlFor="roach counter">Roach Counter</Form.Label>
-                <Form.Control
-                    data-testid={testIdPrefix + "-roach counter"}
-                    id="roach counter"
-                    type="text"
-                    isInvalid={Boolean(errors.description)}
-                    {...register("roach counter", {
-                        required: "Roach Counter is required."
-                    })}
-                />
-                <Form.Control.Feedback type="invalid">
-                    {errors.description?.message}
+                    {errors.cuisine?.message}
                 </Form.Control.Feedback>
             </Form.Group>
 
+            <Form.Group className="mb-3" >
+                <Form.Label htmlFor="roachCounter">Roach Counter</Form.Label>
+                <Form.Control
+                    data-testid={testIdPrefix + "-roachCounter"}
+                    id="roachCounter"
+                    type="number"
+                    isInvalid={Boolean(errors.roachCounter)}
+                    {...register("roachCounter", {
+                        required: "Roach counter is required.",
+                        valueAsNumber: true,
+                    })}
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.roachCounter?.message}
+                </Form.Control.Feedback>
+            </Form.Group>
 
             <Button
                 type="submit"
