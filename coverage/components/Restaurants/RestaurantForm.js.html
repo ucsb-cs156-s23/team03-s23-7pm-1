@@ -174,28 +174,36 @@
 <a name='L109'></a><a href='#L109'>109</a>
 <a name='L110'></a><a href='#L110'>110</a>
 <a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -334,8 +342,8 @@ function RestaurantForm({ initialContents, submitAction, buttonLabel = "Create" 
                     {...register("name", {
                         required: "Name is required.",
                         maxLength : {
-                            value: 30,
-                            message: "Max length 30 characters"
+                            value: 50,
+                            message: "Max length 50 characters"
                         }
                     })}
                 /&gt;
@@ -350,32 +358,36 @@ function RestaurantForm({ initialContents, submitAction, buttonLabel = "Create" 
                     data-testid={testIdPrefix + "-cuisine"}
                     id="cuisine"
                     type="text"
-                    isInvalid={Boolean(errors.description)}
+                    isInvalid={Boolean(errors.cuisine)}
                     {...register("cuisine", {
-                        required: "Cuisine is required."
+                        required: "Cuisine is required.",
+                        maxLength : {
+                            value: 25,
+                            message: "Max length 25 characters"
+                        }
                     })}
                 /&gt;
                 &lt;Form.Control.Feedback type="invalid"&gt;
-                    {errors.description?.message}
-                &lt;/Form.Control.Feedback&gt;  
-            &lt;/Form.Group&gt;
-&nbsp;
-            &lt;Form.Group className="mb-3" &gt;
-                &lt;Form.Label htmlFor="roach counter"&gt;Roach Counter&lt;/Form.Label&gt;
-                &lt;Form.Control
-                    data-testid={testIdPrefix + "-roach counter"}
-                    id="roach counter"
-                    type="text"
-                    isInvalid={Boolean(errors.description)}
-                    {...register("roach counter", {
-                        required: "Roach Counter is required."
-                    })}
-                /&gt;
-                &lt;Form.Control.Feedback type="invalid"&gt;
-                    {errors.description?.message}
+                    {errors.cuisine?.message}
                 &lt;/Form.Control.Feedback&gt;
             &lt;/Form.Group&gt;
 &nbsp;
+            &lt;Form.Group className="mb-3" &gt;
+                &lt;Form.Label htmlFor="roachCounter"&gt;Roach Counter&lt;/Form.Label&gt;
+                &lt;Form.Control
+                    data-testid={testIdPrefix + "-roachCounter"}
+                    id="roachCounter"
+                    type="number"
+                    isInvalid={Boolean(errors.roachCounter)}
+                    {...register("roachCounter", {
+                        required: "Roach counter is required.",
+                        valueAsNumber: true,
+                    })}
+                /&gt;
+                &lt;Form.Control.Feedback type="invalid"&gt;
+                    {errors.roachCounter?.message}
+                &lt;/Form.Control.Feedback&gt;
+            &lt;/Form.Group&gt;
 &nbsp;
             &lt;Button
                 type="submit"
@@ -403,7 +415,7 @@ export default RestaurantForm;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sat May 20 2023 23:07:58 GMT-0700 (Pacific Daylight Time)
+                at Sat May 20 2023 23:29:28 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
