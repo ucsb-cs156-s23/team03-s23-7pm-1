@@ -4,44 +4,46 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 
 // for mocking /api/currentUser and /api/systemInfo
-import { apiCurrentUserFixtures }  from "fixtures/currentUserFixtures";
+import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
 const mockNavigate = jest.fn();
-jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useParams: () => ({
-        id: 3
-    }),
-    useNavigate: () => mockNavigate
-}));
-
-jest.mock('main/utils/schoolUtils', () => {
+jest.mock("react-router-dom", () => {
+    const originalModule = jest.requireActual("react-router-dom");
     return {
         __esModule: true,
-        schoolUtils: {
-            getById: (_id) => {
-                return {
-                    school: {
-                        "id": 3,
-                        "name": "Dos Pueblos High School",
-                        "district": "Santa Barbara Unified School District",
-                        "grade range": "9-12"
-                    }
-                }
-            }
-        }
-    }
+        ...originalModule,
+        useParams: () => ({
+            id: 3,
+            name: "Dos Pueblos High School",
+            district: "Santa Barbara Unified School District",
+            gradeRange: "9-12",
+        }),
+        Navigate: (x) => {
+            mockNavigate(x);
+            return null;
+        },
+    };
 });
 
 describe("SchoolDetailsPage tests", () => {
-
     // mock /api/currentUser and /api/systemInfo
-    const axiosMock =new AxiosMockAdapter(axios);
-    axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
-    axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+    const axiosMock = new AxiosMockAdapter(axios);
+
+    beforeEach(() => {
+        axiosMock.reset();
+        axiosMock.resetHistory();
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+        axiosMock.onGet("/api/schools", { params: { id: 3 } }).reply(200, {
+            id: 3,
+            name: "Dos Pueblos High School",
+            district: "Santa Barbara Unified School District",
+            gradeRange: "9-12",
+        });
+    });
 
     const queryClient = new QueryClient();
     test("renders without crashing", () => {
@@ -70,7 +72,4 @@ describe("SchoolDetailsPage tests", () => {
         expect(screen.queryByText("Edit")).not.toBeInTheDocument();
         expect(screen.queryByText("Details")).not.toBeInTheDocument();
     });
-
 });
-
-

@@ -1,24 +1,47 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import SchoolForm from "main/components/Schools/SchoolForm";
-import { useNavigate } from 'react-router-dom'
-import { schoolUtils } from 'main/utils/schoolUtils';
+import { Navigate } from "react-router-dom";
+import { useBackendMutation } from "main/utils/useBackend";
+import { toast } from "react-toastify";
 
 export default function SchoolCreatePage() {
+    const objectToAxiosParams = (school) => ({
+        url: "/api/schools/post",
+        method: "POST",
+        params: {
+            name: school.name,
+            district: school.district,
+            gradeRange: school.gradeRange,
+        },
+    });
 
-  let navigate = useNavigate(); 
+    const onSuccess = (school) => {
+        toast(`New school created - id: ${school.id} name: ${school.name}`);
+    };
 
-  const onSubmit = async (school) => {
-    const createdSchool = schoolUtils.add(school);
-    console.log("createdSchool: " + JSON.stringify(createdSchool));
-    navigate("/schools");
-  }  
+    const mutation = useBackendMutation(
+        objectToAxiosParams,
+        { onSuccess },
+        // Stryker disable next-line all : hard to set up test for caching
+        ["/api/schools/all"]
+    );
 
-  return (
-    <BasicLayout>
-      <div className="pt-2">
-        <h1>Create New School</h1>
-        <SchoolForm submitAction={onSubmit} />
-      </div>
-    </BasicLayout>
-  )
+    const { isSuccess } = mutation;
+
+    const onSubmit = async (school) => {
+        mutation.mutate(school);
+    };
+
+    if (isSuccess) {
+        return <Navigate to="/schools/" />;
+    }
+
+    return (
+        <BasicLayout>
+            <div className="pt-2">
+                <h1>Create New School</h1>
+                <SchoolForm submitAction={onSubmit} />
+            </div>
+        </BasicLayout>
+    );
 }
