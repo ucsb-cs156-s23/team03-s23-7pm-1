@@ -30,8 +30,8 @@ export default function RestaurantCreatePage() {
 
   const { isSuccess } = mutation
 
-  const onSubmit = async (data) => {
-    mutation.mutate(data);
+  const onSubmit = async (restaurant) => {
+    mutation.mutate(restaurant);
   }
 
   if (isSuccess) {
@@ -42,9 +42,7 @@ export default function RestaurantCreatePage() {
     <BasicLayout>
       <div className="pt-2">
         <h1>Create New Restaurant</h1>
-
         <RestaurantForm submitAction={onSubmit} />
-
       </div>
     </BasicLayout>
   )

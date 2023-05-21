@@ -1,11 +1,8 @@
 //update to connect backend
-
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import RestaurantIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
-
-
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { restaurantFixtures } from "fixtures/restaurantFixtures";
@@ -56,7 +53,9 @@ describe("RestaurantIndexPage tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
-
+        const createRestaurantButton = screen.getByText("Create Restaurant");
+        expect(createRestaurantButton).toBeInTheDocument();
+        expect(createRestaurantButton).toHaveAttribute("style", "float: right;");
 
     });
 
@@ -72,7 +71,9 @@ describe("RestaurantIndexPage tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
-
+        const createRestaurantButton = screen.getByText("Create Restaurant");
+        expect(createRestaurantButton).toBeInTheDocument();
+        expect(createRestaurantButton).toHaveAttribute("style", "float: right;");
 
     });
 
@@ -112,6 +113,10 @@ describe("RestaurantIndexPage tests", () => {
         expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
         expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
 
+        const createRestaurantButton = screen.getByText("Create Restaurant");
+        expect(createRestaurantButton).toBeInTheDocument();
+        expect(createRestaurantButton).toHaveAttribute("style", "float: right;");
+
     });
 
     test("renders empty table when backend unavailable, user only", async () => {
@@ -137,6 +142,10 @@ describe("RestaurantIndexPage tests", () => {
         restoreConsole();
 
         expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
+
+        const createRestaurantButton = screen.getByText("Create Restaurant");
+        expect(createRestaurantButton).toBeInTheDocument();
+        expect(createRestaurantButton).toHaveAttribute("style", "float: right;");
     });
 
     test("what happens when you click delete, admin", async () => {
@@ -168,7 +177,6 @@ describe("RestaurantIndexPage tests", () => {
         await waitFor(() => { expect(mockToast).toBeCalledWith("Restaurant with id 1 was deleted") });
 
     });
-
 });
 
 
