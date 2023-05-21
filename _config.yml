@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s23/team03-s23-7pm-1
 owner: ucsb-cs156-s23
 repo_name: team03-s23-7pm-1
-pull_requests: [{"author":{"id":"MDQ6VXNlcjQyMzY2OTc2","is_bot":false,"login":"asojonih08","name":""},"headRefName":"Ricardo-updateRestaurantForBackend","number":32,"title":"Update restaurant for backend","url":"https://github.com/ucsb-cs156-s23/team03-s23-7pm-1/pull/32"}]
+pull_requests: [{"author":{"id":"U_kgDOB0-WaA","is_bot":false,"login":"BenCrutt","name":""},"headRefName":"Ben-schoolMerge","number":33,"title":"Ben school merge","url":"https://github.com/ucsb-cs156-s23/team03-s23-7pm-1/pull/33"},{"author":{"id":"MDQ6VXNlcjQyMzY2OTc2","is_bot":false,"login":"asojonih08","name":""},"headRefName":"Ricardo-updateRestaurantForBackend","number":32,"title":"Update restaurant for backend","url":"https://github.com/ucsb-cs156-s23/team03-s23-7pm-1/pull/32"}]
