@@ -57,7 +57,7 @@ describe("SchoolCreatePage tests", () => {
             id: 17,
             name: "Dos Pueblos High School",
             district: "Santa Barbara Unified School District",
-            ["grade range"]: "9-12"
+            gradeRange: "9-12"
         };
 
         axiosMock.onPost("/api/schools/post").reply(202, school);
@@ -71,15 +71,15 @@ describe("SchoolCreatePage tests", () => {
         );
 
         await waitFor(() => {
-            expect(getByTestId("SchoolForm-grade range")).toBeInTheDocument();
+            expect(getByTestId("SchoolForm-gradeRange")).toBeInTheDocument();
         });
 
-        const graderangeField = getByTestId("SchoolForm-grade range");
+        const gradeRangeField = getByTestId("SchoolForm-gradeRange");
         const nameField = getByTestId("SchoolForm-name");
         const districtField = getByTestId("SchoolForm-district");
         const submitButton = getByTestId("SchoolForm-submit");
 
-        fireEvent.change(graderangeField, { target: { value: "9-12" } });
+        fireEvent.change(gradeRangeField, { target: { value: "9-12" } });
         fireEvent.change(nameField, { target: { value: "Dos Pueblos High School" } });
         fireEvent.change(districtField, { target: { value: "Santa Barbara Unified School District" } });
 
@@ -92,7 +92,7 @@ describe("SchoolCreatePage tests", () => {
         expect(axiosMock.history.post[0].params).toEqual({
             name: "Dos Pueblos High School",
             district: "Santa Barbara Unified School District",
-            ["grade range"]: "9-12",
+            gradeRange: "9-12",
         });
 
         expect(mockToast).toBeCalledWith("New school created - id: 17 name: Dos Pueblos High School");

@@ -16,8 +16,8 @@ jest.mock("react-router-dom", () => ({
 describe("SchoolTable tests", () => {
     const queryClient = new QueryClient();
 
-    const expectedHeaders = ["id", "Name", "District", "Grade Range"];
-    const expectedFields = ["id", "name", "district", "grade range"];
+    const expectedHeaders = ["id", "Name", "District", "GradeRange"];
+    const expectedFields = ["id", "name", "district", "gradeRange"];
     const testId = "SchoolTable";
 
     test("showCell function works properly", () => {
@@ -95,8 +95,8 @@ describe("SchoolTable tests", () => {
             screen.getByTestId(`${testId}-cell-row-0-col-district`)
         ).toHaveTextContent(schoolFixtures.threeSchools[0].district);
         expect(
-            screen.getByTestId(`${testId}-cell-row-0-col-grade range`)
-        ).toHaveTextContent(schoolFixtures.threeSchools[0]["grade range"]);
+            screen.getByTestId(`${testId}-cell-row-0-col-gradeRange`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[0].gradeRange);
 
         expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
         expect(
@@ -106,8 +106,8 @@ describe("SchoolTable tests", () => {
             screen.getByTestId(`${testId}-cell-row-1-col-district`)
         ).toHaveTextContent(schoolFixtures.threeSchools[1].district);
         expect(
-            screen.getByTestId(`${testId}-cell-row-1-col-grade range`)
-        ).toHaveTextContent(schoolFixtures.threeSchools[1]["grade range"]);
+            screen.getByTestId(`${testId}-cell-row-1-col-gradeRange`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[1].gradeRange);
 
         const detailsButton = screen.getByTestId(
             `${testId}-cell-row-0-col-Details-button`
@@ -159,8 +159,8 @@ describe("SchoolTable tests", () => {
             screen.getByTestId(`${testId}-cell-row-0-col-district`)
         ).toHaveTextContent(schoolFixtures.threeSchools[0].district);
         expect(
-            screen.getByTestId(`${testId}-cell-row-0-col-grade range`)
-        ).toHaveTextContent(schoolFixtures.threeSchools[0]["grade range"]);
+            screen.getByTestId(`${testId}-cell-row-0-col-gradeRange`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[0].gradeRange);
 
         expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
         expect(
@@ -170,8 +170,8 @@ describe("SchoolTable tests", () => {
             screen.getByTestId(`${testId}-cell-row-1-col-district`)
         ).toHaveTextContent(schoolFixtures.threeSchools[1].district);
         expect(
-            screen.getByTestId(`${testId}-cell-row-1-col-grade range`)
-        ).toHaveTextContent(schoolFixtures.threeSchools[1]["grade range"]);
+            screen.getByTestId(`${testId}-cell-row-1-col-gradeRange`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[1].gradeRange);
 
         const detailsButton = screen.getByTestId(
             `${testId}-cell-row-0-col-Details-button`
@@ -213,8 +213,8 @@ describe("SchoolTable tests", () => {
             screen.getByTestId(`${testId}-cell-row-0-col-district`)
         ).toHaveTextContent(schoolFixtures.threeSchools[0].district);
         expect(
-            screen.getByTestId(`${testId}-cell-row-0-col-grade range`)
-        ).toHaveTextContent(schoolFixtures.threeSchools[0]["grade range"]);
+            screen.getByTestId(`${testId}-cell-row-0-col-gradeRange`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[0].gradeRange);
 
         expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
         expect(
@@ -224,8 +224,8 @@ describe("SchoolTable tests", () => {
             screen.getByTestId(`${testId}-cell-row-1-col-district`)
         ).toHaveTextContent(schoolFixtures.threeSchools[1].district);
         expect(
-            screen.getByTestId(`${testId}-cell-row-1-col-grade range`)
-        ).toHaveTextContent(schoolFixtures.threeSchools[1]["grade range"]);
+            screen.getByTestId(`${testId}-cell-row-1-col-gradeRange`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[1].gradeRange);
 
         expect(screen.queryByText("Delete")).not.toBeInTheDocument();
         expect(screen.queryByText("Edit")).not.toBeInTheDocument();
@@ -273,7 +273,7 @@ describe("SchoolTable tests", () => {
         // assert - check that the console.log was called with the expected message
         expect(console.log).toHaveBeenCalled();
         const message = console.log.mock.calls[0][0];
-        const expectedMessage = `editCallback: {"id":2,"name":"Isla Vista Elementary School","district":"Goleta Union School District","grade range":"K-6"}`;
+        const expectedMessage = `editCallback: {"id":2,"name":"Isla Vista Elementary School","district":"Goleta Union School District","gradeRange":"K-6"}`;
         expect(message).toBe(expectedMessage);
         restoreConsole();
     });
@@ -317,7 +317,7 @@ describe("SchoolTable tests", () => {
         // assert - check that the console.log was called with the expected message
         expect(console.log).toHaveBeenCalled();
         const message = console.log.mock.calls[0][0];
-        const expectedMessage = `detailsCallback: {"id":2,"name":"Isla Vista Elementary School","district":"Goleta Union School District","grade range":"K-6"}`;
+        const expectedMessage = `detailsCallback: {"id":2,"name":"Isla Vista Elementary School","district":"Goleta Union School District","gradeRange":"K-6"}`;
         expect(message).toBe(expectedMessage);
         restoreConsole();
     });

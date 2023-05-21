@@ -11,7 +11,7 @@ export default function SchoolCreatePage() {
         params: {
             name: school.name,
             district: school.district,
-            "grade range": school["grade range"],
+            gradeRange: school.gradeRange,
         },
     });
 

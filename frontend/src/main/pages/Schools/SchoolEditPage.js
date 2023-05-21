@@ -26,7 +26,7 @@ export default function SchoolEditPage() {
         data: {
             name: school.name,
             district: school.district,
-            "grade range": school["grade range"],
+            gradeRange: school.gradeRange,
         }
     });
 

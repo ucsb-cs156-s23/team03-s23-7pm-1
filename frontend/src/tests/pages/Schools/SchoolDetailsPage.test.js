@@ -19,7 +19,7 @@ jest.mock("react-router-dom", () => {
             id: 3,
             name: "Dos Pueblos High School",
             district: "Santa Barbara Unified School District",
-            ["grade range"]: "9-12",
+            gradeRange: "9-12",
         }),
         Navigate: (x) => {
             mockNavigate(x);
@@ -41,7 +41,7 @@ describe("SchoolDetailsPage tests", () => {
             id: 3,
             name: "Dos Pueblos High School",
             district: "Santa Barbara Unified School District",
-            ["grade range"]: "9-12",
+            gradeRange: "9-12",
         });
     });
 

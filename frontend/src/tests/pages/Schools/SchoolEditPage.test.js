@@ -35,7 +35,7 @@ jest.mock("main/utils/schoolUtils", () => {
                         id: 3,
                         name: "Carpinteria High School",
                         district: "Carpinteria Unified School District",
-                        ["grade range"]: "9-12",
+                        gradeRange: "9-12",
                     }
                 }
             }
@@ -100,13 +100,13 @@ describe("SchoolEditPage tests", () => {
                 id: 3,
                 name: "Carpinteria High School",
                 district: "Carpinteria Unified School District",
-                ["grade range"]: "9-12"
+                gradeRange: "9-12"
             });
             axiosMock.onPut("/api/schools").reply(200, {
                 id: "3",
                 name: "Goleta Valley Junior High School",
                 district: "Santa Barbara Unified School District",
-                ["grade range"]: "7-8"
+                gradeRange: "7-8"
             });
         });
         const queryClient = new QueryClient();
@@ -135,7 +135,7 @@ describe("SchoolEditPage tests", () => {
             const idField = getByTestId("SchoolForm-id");
             const nameField = getByTestId("SchoolForm-name");
             const districtField = getByTestId("SchoolForm-district");
-            const graderangeField = getByTestId("SchoolForm-grade range");
+            const graderangeField = getByTestId("SchoolForm-gradeRange");
 
             expect(idField).toHaveValue("3");
             expect(nameField).toHaveValue("Carpinteria High School");
@@ -157,7 +157,7 @@ describe("SchoolEditPage tests", () => {
             const idField = getByTestId("SchoolForm-id");
             const nameField = getByTestId("SchoolForm-name");
             const districtField = getByTestId("SchoolForm-district");
-            const graderangeField = getByTestId("SchoolForm-grade range");
+            const graderangeField = getByTestId("SchoolForm-gradeRange");
 
             const submitButton = getByTestId("SchoolForm-submit");
 
@@ -188,7 +188,7 @@ describe("SchoolEditPage tests", () => {
                 JSON.stringify({
                     name: "Goleta Valley Junior High School",
                     district: "Santa Barbara Unified School District",
-                    ["grade range"]: "7-8",
+                    gradeRange: "7-8",
                 })
             );
         });

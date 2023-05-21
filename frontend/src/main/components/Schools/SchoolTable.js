@@ -53,8 +53,8 @@ export default function SchoolTable({
             accessor: "district",
         },
         {
-            Header: "Grade Range",
-            accessor: "grade range",
+            Header: "GradeRange",
+            accessor: "gradeRange",
         },
     ];
 
