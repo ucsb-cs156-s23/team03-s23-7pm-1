@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-import { useNavigate } from 'react-router-dom'
 
 export function onDeleteSuccess(message) {
     console.log(message);
@@ -10,8 +9,6 @@ export function cellToAxiosParamsDelete(cell) {
     return {
         url: "/api/schools",
         method: "DELETE",
-        params: {
-            id: cell.row.values.id
-        }
+        params: { id: cell.row.values.id }
     }
 }

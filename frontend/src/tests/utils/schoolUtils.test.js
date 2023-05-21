@@ -1,54 +1,39 @@
-
-import { onDeleteSuccess, cellToAxiosParamsDelete, editCallback } from "main/utils/schoolUtils";
+import { onDeleteSuccess, cellToAxiosParamsDelete } from "main/utils/schoolUtils";
 import mockConsole from "jest-mock-console";
 
 const mockToast = jest.fn();
-jest.mock('react-toastify', () => {
-    const originalModule = jest.requireActual('react-toastify');
+jest.mock("react-toastify", () => {
+    const originalModule = jest.requireActual("react-toastify");
     return {
         __esModule: true,
         ...originalModule,
-        toast: (x) => mockToast(x)
+        toast: (x) => mockToast(x),
     };
 });
 
-describe("schoolUtils", () => {
+describe("schoolUtils tests", () => {
+    test("onDeleteSuccess puts message in console.log and in a toast", () => {
+        const restoreConsole = mockConsole();
 
-    describe("onDeleteSuccess", () => {
+        // act
+        onDeleteSuccess("abc");
 
-        test("It puts the message on console.log and in a toast", () => {
-            // arrange
-            const restoreConsole = mockConsole();
+        // assert
+        expect(mockToast).toHaveBeenCalledWith("abc");
+        expect(console.log).toHaveBeenCalledWith(expect.stringMatching("abc"));
 
-            // act
-            onDeleteSuccess("abc");
-
-            // assert
-            expect(mockToast).toHaveBeenCalledWith("abc");
-            expect(console.log).toHaveBeenCalled();
-            const message = console.log.mock.calls[0][0];
-            expect(message).toMatch("abc");
-
-            restoreConsole();
-        });
-
+        restoreConsole();
     });
-    describe("cellToAxiosParamsDelete", () => {
 
-        test("It returns the correct params", () => {
-            // arrange
-            const cell = { row: { values: { id: 17 } } };
+    test("cellToAxiosParamsDelete returns correct params", () => {
+        const cell = { row: { values: { id: 17 } } };
 
-            // act
-            const result = cellToAxiosParamsDelete(cell);
+        const result = cellToAxiosParamsDelete(cell);
 
-            // assert
-            expect(result).toEqual({
-                url: "/api/schools",
-                method: "DELETE",
-                params: { id: 17 }
-            });
+        expect(result).toEqual({
+            url: "/api/schools",
+            method: "DELETE",
+            params: { id: 17 },
         });
-
     });
 });

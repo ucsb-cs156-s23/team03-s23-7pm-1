@@ -4,31 +4,33 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 
 // for mocking /api/currentUser and /api/systemInfo
-import { apiCurrentUserFixtures }  from "fixtures/currentUserFixtures";
+import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
 const mockNavigate = jest.fn();
-jest.mock('react-router-dom', () => {
-    const originalModule = jest.requireActual('react-router-dom');
+jest.mock("react-router-dom", () => {
+    const originalModule = jest.requireActual("react-router-dom");
     return {
         __esModule: true,
         ...originalModule,
         useParams: () => ({
             id: 3,
-            name: "Goleta Valley Junior High School",
+            name: "Dos Pueblos High School",
             district: "Santa Barbara Unified School District",
-            graderange: "7-8"
+            ["grade range"]: "9-12",
         }),
-        Navigate: (x) => { mockNavigate(x); return null; }
+        Navigate: (x) => {
+            mockNavigate(x);
+            return null;
+        },
     };
 });
 
 describe("SchoolDetailsPage tests", () => {
-
     // mock /api/currentUser and /api/systemInfo
-    const axiosMock =new AxiosMockAdapter(axios);
+    const axiosMock = new AxiosMockAdapter(axios);
 
     beforeEach(() => {
         axiosMock.reset();
@@ -37,9 +39,9 @@ describe("SchoolDetailsPage tests", () => {
         axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
         axiosMock.onGet("/api/schools", { params: { id: 3 } }).reply(200, {
             id: 3,
-            name: 'Goleta Valley Junior High School',
+            name: "Dos Pueblos High School",
             district: "Santa Barbara Unified School District",
-            graderange: "7-8"
+            ["grade range"]: "9-12",
         });
     });
 
@@ -62,14 +64,12 @@ describe("SchoolDetailsPage tests", () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
-        expect(screen.getByText("Goleta Valley Junior High School")).toBeInTheDocument();
+        expect(screen.getByText("Dos Pueblos High School")).toBeInTheDocument();
         expect(screen.getByText("Santa Barbara Unified School District")).toBeInTheDocument();
-        expect(screen.getByText("7-8")).toBeInTheDocument();
+        expect(screen.getByText("9-12")).toBeInTheDocument();
 
         expect(screen.queryByText("Delete")).not.toBeInTheDocument();
         expect(screen.queryByText("Edit")).not.toBeInTheDocument();
         expect(screen.queryByText("Details")).not.toBeInTheDocument();
     });
-
 });
-

@@ -1,8 +1,7 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import SchoolIndexPage from "main/pages/Schools/SchoolIndexPage";
-
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
@@ -11,20 +10,18 @@ import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "jest-mock-console";
 
-
 const mockToast = jest.fn();
-jest.mock('react-toastify', () => {
-    const originalModule = jest.requireActual('react-toastify');
+jest.mock("react-toastify", () => {
+    const originalModule = jest.requireActual("react-toastify");
     return {
         __esModule: true,
         ...originalModule,
-        toast: (x) => mockToast(x)
+        toast: (x) => mockToast(x),
     };
 });
 
 describe("SchoolIndexPage tests", () => {
-
-    const axiosMock =new AxiosMockAdapter(axios);
+    const axiosMock = new AxiosMockAdapter(axios);
 
     const testId = "SchoolTable";
 
@@ -55,7 +52,9 @@ describe("SchoolIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-
+        const createSchoolButton = screen.getByText("Create School");
+        expect(createSchoolButton).toBeInTheDocument();
+        expect(createSchoolButton).toHaveAttribute("style", "float: right;");
     });
 
     test("renders without crashing for admin user", () => {
@@ -71,7 +70,9 @@ describe("SchoolIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-
+        const createSchoolButton = screen.getByText("Create School");
+        expect(createSchoolButton).toBeInTheDocument();
+        expect(createSchoolButton).toHaveAttribute("style", "float: right;");
     });
 
     test("renders three schools without crashing for regular user", async () => {
@@ -87,10 +88,11 @@ describe("SchoolIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2"); });
+        await waitFor(() => {
+            expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
+        });
         expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
         expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("4");
-
     });
 
     test("renders three schools without crashing for admin user", async () => {
@@ -106,10 +108,15 @@ describe("SchoolIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2"); });
+        await waitFor(() => {
+            expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
+        });
         expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
         expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("4");
 
+        const createSchoolButton = screen.getByText("Create School");
+        expect(createSchoolButton).toBeInTheDocument();
+        expect(createSchoolButton).toHaveAttribute("style", "float: right;");
     });
 
     test("renders empty table when backend unavailable, user only", async () => {
@@ -128,13 +135,23 @@ describe("SchoolIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
+        await waitFor(() => {
+            expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
+        });
 
         const errorMessage = console.error.mock.calls[0][0];
-        expect(errorMessage).toMatch("Error communicating with backend via GET on /api/schools/all");
+        expect(errorMessage).toMatch(
+            "Error communicating with backend via GET on /api/schools/all"
+        );
         restoreConsole();
 
-        expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
+        expect(
+            queryByTestId(`${testId}-cell-row-0-col-id`)
+        ).not.toBeInTheDocument();
+
+        const createSchoolButton = screen.getByText("Create School");
+        expect(createSchoolButton).toBeInTheDocument();
+        expect(createSchoolButton).toHaveAttribute("style", "float: right;");
     });
 
     test("what happens when you click delete, admin", async () => {
@@ -144,7 +161,6 @@ describe("SchoolIndexPage tests", () => {
         axiosMock.onGet("/api/schools/all").reply(200, schoolFixtures.threeSchools);
         axiosMock.onDelete("/api/schools").reply(200, "School with id 2 was deleted");
 
-
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
@@ -153,18 +169,19 @@ describe("SchoolIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toBeInTheDocument(); });
+        await waitFor(() => {
+            expect(getByTestId(`${testId}-cell-row-0-col-id`)).toBeInTheDocument();
+        });
 
-       expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2"); 
+        expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
 
-
-        const deleteButton = getByTestId(`${testId}-cell-row-1-col-Delete-button`);
+        const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
         expect(deleteButton).toBeInTheDocument();
-       
+
         fireEvent.click(deleteButton);
 
-        await waitFor(() => { expect(mockToast).toBeCalledWith("School with id 2 was deleted") });
-
+        await waitFor(() => {
+            expect(mockToast).toBeCalledWith("School with id 2 was deleted");
+        });
     });
-
 });

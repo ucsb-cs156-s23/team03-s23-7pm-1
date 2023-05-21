@@ -1,234 +1,324 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { schoolFixtures } from "fixtures/schoolFixtures";
-import SchoolTable from "main/components/Schools/SchoolTable";
+import SchoolTable, { showCell } from "main/components/Schools/SchoolTable";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import { currentUserFixtures } from "fixtures/currentUserFixtures";
-
+import { currentUserFixtures } from "../../../fixtures/currentUserFixtures";
+import mockConsole from "jest-mock-console";
 
 const mockedNavigate = jest.fn();
 
-jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useNavigate: () => mockedNavigate
+jest.mock("react-router-dom", () => ({
+    ...jest.requireActual("react-router-dom"),
+    useNavigate: () => mockedNavigate,
 }));
 
 describe("SchoolTable tests", () => {
-  const queryClient = new QueryClient();
-
-
-  test("renders without crashing for empty table with user not logged in", () => {
-    const currentUser = null;
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <SchoolTable schools={[]} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
-
-    );
-  });
-  test("renders without crashing for empty table for ordinary user", () => {
-    const currentUser = currentUserFixtures.userOnly;
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <SchoolTable schools={[]} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
-
-    );
-  });
-
-  test("renders without crashing for empty table for admin", () => {
-    const currentUser = currentUserFixtures.adminUser;
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <SchoolTable schools={[]} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
-
-    );
-  });
-
-  test("Has the expected column headers and content for adminUser", () => {
-
-    const currentUser = currentUserFixtures.adminUser;
-
-    const { getByText, getByTestId } = render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <SchoolTable schools={schoolFixtures.threeSchools} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
-
-    );
+    const queryClient = new QueryClient();
 
     const expectedHeaders = ["id", "Name", "District", "Grade Range"];
-    const expectedFields = ["id", "name", "district", "graderange"];
+    const expectedFields = ["id", "name", "district", "grade range"];
     const testId = "SchoolTable";
 
-    expectedHeaders.forEach((headerText) => {
-      const header = getByText(headerText);
-      expect(header).toBeInTheDocument();
+    test("showCell function works properly", () => {
+        const cell = {
+            row: {
+                values: { a: 1, b: 2, c: 3 },
+            },
+        };
+        expect(showCell(cell)).toBe(`{"a":1,"b":2,"c":3}`);
     });
 
-    expectedFields.forEach((field) => {
-      const header = getByTestId(`${testId}-cell-row-0-col-${field}`);
-      expect(header).toBeInTheDocument();
+    test("renders without crashing for empty table with user not logged in", () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <SchoolTable schools={[]} currentUser={null} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
     });
 
-    expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
-    expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
+    test("renders without crashing for empty table for ordinary user", () => {
+        const currentUser = currentUserFixtures.userOnly;
 
-    const editButton = getByTestId(`${testId}-cell-row-0-col-Edit-button`);
-    expect(editButton).toBeInTheDocument();
-    expect(editButton).toHaveClass("btn-primary");
-
-    const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-    expect(deleteButton).toBeInTheDocument();
-    expect(deleteButton).toHaveClass("btn-danger");
-
-  });
-
-  test("Has the expected column headers and content for ordinary User", () => {
-
-    const currentUser = currentUserFixtures.userOnly;
-
-    const { getByText, getByTestId } = render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <SchoolTable schools={schoolFixtures.threeSchools} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
-
-    );
-
-    const expectedHeaders = ["id", "Name", "District", "Grade Range"];
-    const expectedFields = ["id", "name", "district", "graderange"];
-    const testId = "SchoolTable";
-
-    expectedHeaders.forEach((headerText) => {
-      const header = getByText(headerText);
-      expect(header).toBeInTheDocument();
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <SchoolTable schools={[]} currentUser={currentUser} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
     });
 
-    expectedFields.forEach((field) => {
-      const header = getByTestId(`${testId}-cell-row-0-col-${field}`);
-      expect(header).toBeInTheDocument();
+    test("renders without crashing for empty table for admin", () => {
+        const currentUser = currentUserFixtures.adminUser;
+
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <SchoolTable schools={[]} currentUser={currentUser} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
     });
 
-    expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
-    expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
+    test("Has the expected column headers, content, and buttons for adminUser", () => {
+        const currentUser = currentUserFixtures.adminUser;
 
-    const editButton = getByTestId(`${testId}-cell-row-0-col-Edit-button`);
-    expect(editButton).toBeInTheDocument();
-    expect(editButton).toHaveClass("btn-primary");
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <SchoolTable
+                        schools={schoolFixtures.threeSchools}
+                        currentUser={currentUser}
+                    />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-    expect(deleteButton).toBeInTheDocument();
-    expect(deleteButton).toHaveClass("btn-danger");
+        expectedHeaders.forEach((headerText) => {
+            const header = screen.getByText(headerText);
+            expect(header).toBeInTheDocument();
+        });
 
-  });
+        expectedFields.forEach((field) => {
+            const header = screen.getByTestId(`${testId}-cell-row-0-col-${field}`);
+            expect(header).toBeInTheDocument();
+        });
 
-  test("Edit button navigates to the edit page for admin user", async () => {
+        expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-name`)
+        ).toHaveTextContent("Isla Vista Elementary School");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-district`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[0].district);
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-grade range`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[0]["grade range"]);
 
-    const currentUser = currentUserFixtures.adminUser;
+        expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-name`)
+        ).toHaveTextContent("Dos Pueblos High School");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-district`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[1].district);
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-grade range`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[1]["grade range"]);
 
-    const { getByText, getByTestId } = render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <SchoolTable schools={schoolFixtures.threeSchools} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
+        const detailsButton = screen.getByTestId(
+            `${testId}-cell-row-0-col-Details-button`
+        );
+        expect(detailsButton).toBeInTheDocument();
+        expect(detailsButton).toHaveClass("btn-primary");
 
-    );
+        const editButton = screen.getByTestId(
+            `${testId}-cell-row-0-col-Edit-button`
+        );
+        expect(editButton).toBeInTheDocument();
+        expect(editButton).toHaveClass("btn-primary");
 
-    await waitFor(() => { expect(getByTestId(`SchoolTable-cell-row-0-col-id`)).toHaveTextContent("2"); });
+        const deleteButton = screen.getByTestId(
+            `${testId}-cell-row-0-col-Delete-button`
+        );
+        expect(deleteButton).toBeInTheDocument();
+        expect(deleteButton).toHaveClass("btn-danger");
+    });
+    test("Has the expected column headers, content, and buttons for ordinary user", () => {
+        const currentUser = currentUserFixtures.userOnly;
 
-    const editButton = getByTestId(`SchoolTable-cell-row-0-col-Edit-button`);
-    expect(editButton).toBeInTheDocument();
-    
-    fireEvent.click(editButton);
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <SchoolTable
+                        schools={schoolFixtures.threeSchools}
+                        currentUser={currentUser}
+                    />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/school/edit/2'));
+        expectedHeaders.forEach((headerText) => {
+            const header = screen.getByText(headerText);
+            expect(header).toBeInTheDocument();
+        });
 
-  });
+        expectedFields.forEach((field) => {
+            const header = screen.getByTestId(`${testId}-cell-row-0-col-${field}`);
+            expect(header).toBeInTheDocument();
+        });
 
-  test("Edit button navigates to the edit page for ordinary user", async () => {
+        expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-name`)
+        ).toHaveTextContent("Isla Vista Elementary School");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-district`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[0].district);
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-grade range`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[0]["grade range"]);
 
-    const currentUser = currentUserFixtures.userOnly;
+        expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-name`)
+        ).toHaveTextContent("Dos Pueblos High School");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-district`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[1].district);
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-grade range`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[1]["grade range"]);
 
-    const { getByText, getByTestId } = render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <SchoolTable schools={schoolFixtures.threeSchools} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
+        const detailsButton = screen.getByTestId(
+            `${testId}-cell-row-0-col-Details-button`
+        );
+        expect(detailsButton).toBeInTheDocument();
+        expect(detailsButton).toHaveClass("btn-primary");
 
-    );
+        expect(screen.queryByText("Edit")).not.toBeInTheDocument();
+        expect(screen.queryByText("Delete")).not.toBeInTheDocument();
+    });
 
-    await waitFor(() => { expect(getByTestId(`SchoolTable-cell-row-0-col-id`)).toHaveTextContent("2"); });
+    test("Has the expected column headers, content and no buttons when showButtons=false", () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <SchoolTable
+                        schools={schoolFixtures.threeSchools}
+                        showButtons={false}
+                    />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    const editButton = getByTestId(`SchoolTable-cell-row-0-col-Edit-button`);
-    expect(editButton).toBeInTheDocument();
-    
-    fireEvent.click(editButton);
+        expectedHeaders.forEach((headerText) => {
+            const header = screen.getByText(headerText);
+            expect(header).toBeInTheDocument();
+        });
 
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/school/edit/2'));
+        expectedFields.forEach((field) => {
+            const header = screen.getByTestId(`${testId}-cell-row-0-col-${field}`);
+            expect(header).toBeInTheDocument();
+        });
 
-  });
+        expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-name`)
+        ).toHaveTextContent("Isla Vista Elementary School");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-district`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[0].district);
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-grade range`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[0]["grade range"]);
 
-  test("Details button navigates to the details page for admin user", async () => {
+        expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-name`)
+        ).toHaveTextContent("Dos Pueblos High School");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-district`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[1].district);
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-grade range`)
+        ).toHaveTextContent(schoolFixtures.threeSchools[1]["grade range"]);
 
-    const currentUser = currentUserFixtures.adminUser;
+        expect(screen.queryByText("Delete")).not.toBeInTheDocument();
+        expect(screen.queryByText("Edit")).not.toBeInTheDocument();
+        expect(screen.queryByText("Details")).not.toBeInTheDocument();
+    });
 
-    const { getByText, getByTestId } = render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <SchoolTable schools={schoolFixtures.threeSchools} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
+    test("Edit button navigates to the edit page for admin", async () => {
+        const restoreConsole = mockConsole();
 
-    );
+        const currentUser = currentUserFixtures.adminUser;
 
-    await waitFor(() => { expect(getByTestId(`SchoolTable-cell-row-0-col-id`)).toHaveTextContent("2"); });
+        // act - render the component
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <SchoolTable
+                        schools={schoolFixtures.threeSchools}
+                        currentUser={currentUser}
+                    />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    const detailsButton = getByTestId(`SchoolTable-cell-row-0-col-Details-button`);
-    expect(detailsButton).toBeInTheDocument();
-    
-    fireEvent.click(detailsButton);
+        // assert - check that the expected content is rendered
+        expect(
+            await screen.findByTestId(`${testId}-cell-row-0-col-id`)
+        ).toHaveTextContent("2");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-name`)
+        ).toHaveTextContent("Isla Vista Elementary School");
 
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/school/details/2'));
+        const editButton = screen.getByTestId(
+            `${testId}-cell-row-0-col-Edit-button`
+        );
+        expect(editButton).toBeInTheDocument();
 
-  });
+        // act - click the edit button
+        fireEvent.click(editButton);
 
-  test("Details button navigates to the details page for ordinary user", async () => {
+        // assert - check that the navigate function was called with the expected path
+        await waitFor(() =>
+            expect(mockedNavigate).toHaveBeenCalledWith("/schools/edit/2")
+        );
 
-    const currentUser = currentUserFixtures.userOnly;
+        // assert - check that the console.log was called with the expected message
+        expect(console.log).toHaveBeenCalled();
+        const message = console.log.mock.calls[0][0];
+        const expectedMessage = `editCallback: {"id":2,"name":"Isla Vista Elementary School","district":"Goleta Union School District","grade range":"K-6"}`;
+        expect(message).toBe(expectedMessage);
+        restoreConsole();
+    });
 
-    const { getByText, getByTestId } = render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <SchoolTable schools={schoolFixtures.threeSchools} currentUser={currentUser} />
-        </MemoryRouter>
-      </QueryClientProvider>
+    test("Details button navigates to the details page", async () => {
+        const restoreConsole = mockConsole();
 
-    );
+        // act - render the component
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <SchoolTable
+                        schools={schoolFixtures.threeSchools}
+                        currentUser={null}
+                    />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    await waitFor(() => { expect(getByTestId(`SchoolTable-cell-row-0-col-id`)).toHaveTextContent("2"); });
+        // assert - check that the expected content is rendered
+        expect(
+            await screen.findByTestId(`${testId}-cell-row-0-col-id`)
+        ).toHaveTextContent("2");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-name`)
+        ).toHaveTextContent("Isla Vista Elementary School");
 
-    const detailsButton = getByTestId(`SchoolTable-cell-row-0-col-Details-button`);
-    expect(detailsButton).toBeInTheDocument();
-    
-    fireEvent.click(detailsButton);
+        const detailsButton = screen.getByTestId(
+            `${testId}-cell-row-0-col-Details-button`
+        );
+        expect(detailsButton).toBeInTheDocument();
 
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/school/details/2'));
+        // act - click the details button
+        fireEvent.click(detailsButton);
 
-  });
+        // assert - check that the navigate function was called with the expected path
+        await waitFor(() =>
+            expect(mockedNavigate).toHaveBeenCalledWith("/schools/details/2")
+        );
 
+        // assert - check that the console.log was called with the expected message
+        expect(console.log).toHaveBeenCalled();
+        const message = console.log.mock.calls[0][0];
+        const expectedMessage = `detailsCallback: {"id":2,"name":"Isla Vista Elementary School","district":"Goleta Union School District","grade range":"K-6"}`;
+        expect(message).toBe(expectedMessage);
+        restoreConsole();
+    });
 });
