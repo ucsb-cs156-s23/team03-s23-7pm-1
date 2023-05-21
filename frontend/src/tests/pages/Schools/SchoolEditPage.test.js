@@ -114,7 +114,7 @@ describe("SchoolEditPage tests", () => {
             const idField = getByTestId("SchoolForm-id");
             const nameField = getByTestId("SchoolForm-name");
             const districtField = getByTestId("SchoolForm-district");
-            const graderangeField = getByTestId("SchoolForm-grade range");
+            const graderangeField = getByTestId("SchoolForm-graderange");
             const submitButton = getByTestId("SchoolForm-submit");
 
             expect(idField).toHaveValue("17");
@@ -140,7 +140,7 @@ describe("SchoolEditPage tests", () => {
             const idField = getByTestId("SchoolForm-id");
             const nameField = getByTestId("SchoolForm-name");
             const districtField = getByTestId("SchoolForm-district");
-            const graderangeField = getByTestId("SchoolForm-grade range");
+            const graderangeField = getByTestId("SchoolForm-graderange");
             const submitButton = getByTestId("SchoolForm-submit");
 
             expect(idField).toHaveValue("17");

@@ -48,7 +48,7 @@ export default function SchoolTable({
         },
         {
             Header: 'Grade Range',
-            accessor: 'grade range',
+            accessor: 'graderange',
         }
     ];
 

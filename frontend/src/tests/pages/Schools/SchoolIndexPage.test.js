@@ -45,7 +45,7 @@ describe("SchoolIndexPage tests", () => {
     test("renders without crashing for regular user", () => {
         setupUserOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/school/all").reply(200, []);
+        axiosMock.onGet("/api/schools/all").reply(200, []);
 
         render(
             <QueryClientProvider client={queryClient}>
@@ -61,7 +61,7 @@ describe("SchoolIndexPage tests", () => {
     test("renders without crashing for admin user", () => {
         setupAdminUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/school/all").reply(200, []);
+        axiosMock.onGet("/api/schools/all").reply(200, []);
 
         render(
             <QueryClientProvider client={queryClient}>
@@ -77,7 +77,7 @@ describe("SchoolIndexPage tests", () => {
     test("renders three schools without crashing for regular user", async () => {
         setupUserOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/school/all").reply(200, schoolFixtures.threeSchools);
+        axiosMock.onGet("/api/schools/all").reply(200, schoolFixtures.threeSchools);
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
@@ -96,7 +96,7 @@ describe("SchoolIndexPage tests", () => {
     test("renders three schools without crashing for admin user", async () => {
         setupAdminUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/school/all").reply(200, schoolFixtures.threeSchools);
+        axiosMock.onGet("/api/schools/all").reply(200, schoolFixtures.threeSchools);
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
@@ -116,7 +116,7 @@ describe("SchoolIndexPage tests", () => {
         setupUserOnly();
 
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/school/all").timeout();
+        axiosMock.onGet("/api/schools/all").timeout();
 
         const restoreConsole = mockConsole();
 
@@ -131,7 +131,7 @@ describe("SchoolIndexPage tests", () => {
         await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
 
         const errorMessage = console.error.mock.calls[0][0];
-        expect(errorMessage).toMatch("Error communicating with backend via GET on /api/school/all");
+        expect(errorMessage).toMatch("Error communicating with backend via GET on /api/schools/all");
         restoreConsole();
 
         expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
@@ -141,8 +141,8 @@ describe("SchoolIndexPage tests", () => {
         setupAdminUser();
 
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/school/all").reply(200, schoolFixtures.threeSchools);
-        axiosMock.onDelete("/api/school").reply(200, "School with id 2 was deleted");
+        axiosMock.onGet("/api/schools/all").reply(200, schoolFixtures.threeSchools);
+        axiosMock.onDelete("/api/schools").reply(200, "School with id 2 was deleted");
 
 
         const { getByTestId } = render(
@@ -158,7 +158,7 @@ describe("SchoolIndexPage tests", () => {
        expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2"); 
 
 
-        const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+        const deleteButton = getByTestId(`${testId}-cell-row-1-col-Delete-button`);
         expect(deleteButton).toBeInTheDocument();
        
         fireEvent.click(deleteButton);

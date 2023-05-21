@@ -71,10 +71,10 @@ describe("SchoolCreatePage tests", () => {
         );
 
         await waitFor(() => {
-            expect(getByTestId("SchoolForm-grade range")).toBeInTheDocument();
+            expect(getByTestId("SchoolForm-graderange")).toBeInTheDocument();
         });
 
-        const graderangeField = getByTestId("SchoolForm-grade range");
+        const graderangeField = getByTestId("SchoolForm-graderange");
         const nameField = getByTestId("SchoolForm-name");
         const districtField = getByTestId("SchoolForm-district");
         const submitButton = getByTestId("SchoolForm-submit");
@@ -93,7 +93,7 @@ describe("SchoolCreatePage tests", () => {
             {
             "name": "Dos Pueblos High School",
             "district": "Santa Barbara Unified School District",
-            "grade range": "9-12"
+            "graderange": "9-12"
         });
 
         expect(mockToast).toBeCalledWith("New school Created - id: 17 name: Dos Pueblos High School");

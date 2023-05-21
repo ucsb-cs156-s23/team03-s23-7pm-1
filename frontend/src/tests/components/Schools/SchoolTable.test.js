@@ -69,7 +69,7 @@ describe("SchoolTable tests", () => {
     );
 
     const expectedHeaders = ["id", "Name", "District", "Grade Range"];
-    const expectedFields = ["id", "name", "district", "grade range"];
+    const expectedFields = ["id", "name", "district", "graderange"];
     const testId = "SchoolTable";
 
     expectedHeaders.forEach((headerText) => {
@@ -109,7 +109,7 @@ describe("SchoolTable tests", () => {
     );
 
     const expectedHeaders = ["id", "Name", "District", "Grade Range"];
-    const expectedFields = ["id", "name", "district", "grade range"];
+    const expectedFields = ["id", "name", "district", "graderange"];
     const testId = "SchoolTable";
 
     expectedHeaders.forEach((headerText) => {
