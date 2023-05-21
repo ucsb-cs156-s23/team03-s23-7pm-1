@@ -1,29 +1,47 @@
-import { render, screen, fireEvent, act, waitFor } from "@testing-library/react";
+import { render, waitFor, fireEvent } from "@testing-library/react";
 import ParkCreatePage from "main/pages/Parks/ParkCreatePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import mockConsole from "jest-mock-console";
+import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
+import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
+import axios from "axios";
+import AxiosMockAdapter from "axios-mock-adapter";
 
-const mockNavigate = jest.fn();
-jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useNavigate: () => mockNavigate
-}));
-
-const mockAdd = jest.fn();
-jest.mock('main/utils/parkUtils', () => {
+const mockToast = jest.fn();
+jest.mock("react-toastify", () => {
+    const originalModule = jest.requireActual("react-toastify");
     return {
         __esModule: true,
-        parkUtils: {
-            add: () => { return mockAdd(); }
+        ...originalModule,
+        toast: (x) => mockToast(x)
+    };
+});
+
+const mockNavigate = jest.fn();
+jest.mock("react-router-dom", () => {
+    const originalModule = jest.requireActual("react-router-dom");
+    return {
+        __esModule: true,
+        ...originalModule,
+        Navigate: (x) => {
+            mockNavigate(x);
+            return null;
         }
-    }
+    };
 });
 
 describe("ParkCreatePage tests", () => {
+    const axiosMock = new AxiosMockAdapter(axios);
 
-    const queryClient = new QueryClient();
+    beforeEach(() => {
+        axiosMock.reset();
+        axiosMock.resetHistory();
+        axiosMock.onGet("/api/currentUser").reply(200, apiCurrentUserFixtures.userOnly);
+        axiosMock.onGet("/api/systemInfo").reply(200, systemInfoFixtures.showingNeither);
+    });
+
     test("renders without crashing", () => {
+        const queryClient = new QueryClient();
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
@@ -33,55 +51,51 @@ describe("ParkCreatePage tests", () => {
         );
     });
 
-    test("redirects to /parks on submit", async () => {
+    test("when you fill in the form and hit submit, it makes a request to the backend", async () => {
+        const queryClient = new QueryClient();
+        const park = {
+            id: 17,
+            name: "Zion National Park",
+            state: "Utah",
+            acres: 147242
+        };
 
-        const restoreConsole = mockConsole();
+        axiosMock.onPost("/api/parks/post").reply(202, park);
 
-        mockAdd.mockReturnValue({
-            "park": {
-                id: 3,
-                name: "Zion National Park",
-                state: "Utah",
-                acres: 147242
-            }
-        });
-
-        render(
+        const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <ParkCreatePage />
                 </MemoryRouter>
             </QueryClientProvider>
-        )
+        );
 
-        const nameInput = screen.getByLabelText("Name");
-        expect(nameInput).toBeInTheDocument();
+        await waitFor(() => {
+            expect(getByTestId("ParkForm-acres")).toBeInTheDocument();
+        });
 
-        const stateInput = screen.getByLabelText("State");
-        expect(stateInput).toBeInTheDocument();
+        const acresField = getByTestId("ParkForm-acres");
+        const nameField = getByTestId("ParkForm-name");
+        const stateField = getByTestId("ParkForm-state");
+        const submitButton = getByTestId("ParkForm-submit");
 
-        const acresInput = screen.getByLabelText("Acres");
-        expect(acresInput).toBeInTheDocument();
+        fireEvent.change(acresField, { target: { value: 147242 } });
+        fireEvent.change(nameField, { target: { value: "Zion National Park" } });
+        fireEvent.change(stateField, { target: { value: "Utah" } });
 
-        const createButton = screen.getByText("Create");
-        expect(createButton).toBeInTheDocument();
+        expect(submitButton).toBeInTheDocument();
 
-        fireEvent.change(nameInput, { target: { value: 'Zion National Park' } })
-        fireEvent.change(stateInput, { target: { value: 'Utah' } })
-        fireEvent.change(acresInput, { target: { value: 147242 } })
-        fireEvent.click(createButton);
+        fireEvent.click(submitButton);
 
-        await waitFor(() => expect(mockAdd).toHaveBeenCalled());
-        await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith("/parks"));
+        await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
-        // assert - check that the console.log was called with the expected message
-        expect(console.log).toHaveBeenCalled();
-        const message = console.log.mock.calls[0][0];
-        const expectedMessage =  `createdPark: {"park":{"id":3,"name":"Zion National Park","state":"Utah","acres":147242}`
+        expect(axiosMock.history.post[0].params).toEqual({
+            name: "Zion National Park",
+            state: "Utah",
+            acres: 147242,
+        });
 
-        expect(message).toMatch(expectedMessage);
-        restoreConsole();
-
+        expect(mockToast).toBeCalledWith("New park created - id: 17 name: Zion National Park");
+        expect(mockNavigate).toBeCalledWith({ to: "/parks/" });
     });
-
 });
