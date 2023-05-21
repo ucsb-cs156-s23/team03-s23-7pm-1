@@ -1,213 +1,324 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
-import ParkTable, { showCell } from "main/components/Parks/ParkTable";
 import { parkFixtures } from "fixtures/parkFixtures";
+import ParkTable, { showCell } from "main/components/Parks/ParkTable";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { MemoryRouter } from "react-router-dom";
+import { currentUserFixtures } from "../../../fixtures/currentUserFixtures";
 import mockConsole from "jest-mock-console";
 
 const mockedNavigate = jest.fn();
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockedNavigate
+jest.mock("react-router-dom", () => ({
+    ...jest.requireActual("react-router-dom"),
+    useNavigate: () => mockedNavigate,
 }));
 
 describe("ParkTable tests", () => {
-  const queryClient = new QueryClient();
+    const queryClient = new QueryClient();
 
-  const expectedHeaders = ["id", "Name", "State", "Acres"];
-  const expectedFields = ["id", "name", "state", "acres"];
-  const testId = "ParkTable";
+    const expectedHeaders = ["id", "Name", "State", "Acres"];
+    const expectedFields = ["id", "name", "state", "acres"];
+    const testId = "ParkTable";
 
-  test("showCell function works properly", () => {
-    const cell = {
-      row: {
-        values: { a: 1, b: 2, c: 3 }
-      },
-    };
-    expect(showCell(cell)).toBe(`{"a":1,"b":2,"c":3}`);
-  });
-
-  test("renders without crashing for empty table", () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <ParkTable parks={[]} />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
-  });
-
-
-
-  test("Has the expected column headers, content and buttons", () => {
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <ParkTable parks={parkFixtures.threeParks} />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
-
-    expectedHeaders.forEach((headerText) => {
-      const header = screen.getByText(headerText);
-      expect(header).toBeInTheDocument();
+    test("showCell function works properly", () => {
+        const cell = {
+            row: {
+                values: { a: 1, b: 2, c: 3 },
+            },
+        };
+        expect(showCell(cell)).toBe(`{"a":1,"b":2,"c":3}`);
     });
 
-    expectedFields.forEach((field) => {
-      const header = screen.getByTestId(`${testId}-cell-row-0-col-${field}`);
-      expect(header).toBeInTheDocument();
+    test("renders without crashing for empty table with user not logged in", () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ParkTable parks={[]} currentUser={null} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
     });
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-name`)).toHaveTextContent("Grand Canyon National Park");
+    test("renders without crashing for empty table for ordinary user", () => {
+        const currentUser = currentUserFixtures.userOnly;
 
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-name`)).toHaveTextContent("Zion National Park");
-
-    const detailsButton = screen.getByTestId(`${testId}-cell-row-0-col-Details-button`); 
-    expect(detailsButton).toBeInTheDocument();
-    expect(detailsButton).toHaveClass("btn-primary");
-
-    const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
-    expect(editButton).toBeInTheDocument();
-    expect(editButton).toHaveClass("btn-primary");
-
-    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-    expect(deleteButton).toBeInTheDocument();
-    expect(deleteButton).toHaveClass("btn-danger");
-
-  });
-
-  test("Has the expected column headers, content and no buttons when showButtons=false", () => {
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <ParkTable parks={parkFixtures.threeParks} showButtons={false} />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
-
-    expectedHeaders.forEach((headerText) => {
-      const header = screen.getByText(headerText);
-      expect(header).toBeInTheDocument();
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ParkTable parks={[]} currentUser={currentUser} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
     });
 
-    expectedFields.forEach((field) => {
-      const header = screen.getByTestId(`${testId}-cell-row-0-col-${field}`);
-      expect(header).toBeInTheDocument();
+    test("renders without crashing for empty table for admin", () => {
+        const currentUser = currentUserFixtures.adminUser;
+
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ParkTable parks={[]} currentUser={currentUser} />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
     });
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-name`)).toHaveTextContent("Grand Canyon National Park");
+    test("Has the expected column headers, content, and buttons for adminUser", () => {
+        const currentUser = currentUserFixtures.adminUser;
 
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-name`)).toHaveTextContent("Zion National Park");
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ParkTable
+                        parks={parkFixtures.threeParks}
+                        currentUser={currentUser}
+                    />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    expect(screen.queryByText("Delete")).not.toBeInTheDocument();
-    expect(screen.queryByText("Edit")).not.toBeInTheDocument();
-    expect(screen.queryByText("Details")).not.toBeInTheDocument();
-  });
+        expectedHeaders.forEach((headerText) => {
+            const header = screen.getByText(headerText);
+            expect(header).toBeInTheDocument();
+        });
 
+        expectedFields.forEach((field) => {
+            const header = screen.getByTestId(`${testId}-cell-row-0-col-${field}`);
+            expect(header).toBeInTheDocument();
+        });
 
-  test("Edit button navigates to the edit page", async () => {
-    // arrange
-    const restoreConsole = mockConsole();
+        expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-name`)
+        ).toHaveTextContent("Grand Canyon National Park");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-acres`)
+        ).toHaveTextContent(parkFixtures.threeParks[0].acres);
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-state`)
+        ).toHaveTextContent(parkFixtures.threeParks[0].state);
 
-    // act - render the component
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <ParkTable parks={parkFixtures.threeParks} />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
+        expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-name`)
+        ).toHaveTextContent("Zion National Park");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-acres`)
+        ).toHaveTextContent(parkFixtures.threeParks[1].acres);
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-state`)
+        ).toHaveTextContent(parkFixtures.threeParks[1].state);
 
-    // assert - check that the expected content is rendered
-    expect(await screen.findByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-name`)).toHaveTextContent("Grand Canyon National Park");
+        const detailsButton = screen.getByTestId(
+            `${testId}-cell-row-0-col-Details-button`
+        );
+        expect(detailsButton).toBeInTheDocument();
+        expect(detailsButton).toHaveClass("btn-primary");
 
-    const editButton = screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`);
-    expect(editButton).toBeInTheDocument();
+        const editButton = screen.getByTestId(
+            `${testId}-cell-row-0-col-Edit-button`
+        );
+        expect(editButton).toBeInTheDocument();
+        expect(editButton).toHaveClass("btn-primary");
 
-    // act - click the edit button
-    fireEvent.click(editButton);
+        const deleteButton = screen.getByTestId(
+            `${testId}-cell-row-0-col-Delete-button`
+        );
+        expect(deleteButton).toBeInTheDocument();
+        expect(deleteButton).toHaveClass("btn-danger");
+    });
+    test("Has the expected column headers, content, and buttons for ordinary user", () => {
+        const currentUser = currentUserFixtures.userOnly;
 
-    // assert - check that the navigate function was called with the expected path
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/parks/edit/2'));
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ParkTable
+                        parks={parkFixtures.threeParks}
+                        currentUser={currentUser}
+                    />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    // assert - check that the console.log was called with the expected message
-    expect(console.log).toHaveBeenCalled();
-    const message = console.log.mock.calls[0][0];
-    const expectedMessage = "editCallback: {\"id\":2,\"name\":\"Grand Canyon National Park\",\"state\":\"Arizona\",\"acres\":1218375})";
-    expect(message).toMatch(expectedMessage);
-    restoreConsole();
-  });
+        expectedHeaders.forEach((headerText) => {
+            const header = screen.getByText(headerText);
+            expect(header).toBeInTheDocument();
+        });
 
-  test("Details button navigates to the details page", async () => {
-    // arrange
-    const restoreConsole = mockConsole();
+        expectedFields.forEach((field) => {
+            const header = screen.getByTestId(`${testId}-cell-row-0-col-${field}`);
+            expect(header).toBeInTheDocument();
+        });
 
-    // act - render the component
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <ParkTable parks={parkFixtures.threeParks} />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
+        expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-name`)
+        ).toHaveTextContent("Grand Canyon National Park");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-acres`)
+        ).toHaveTextContent(parkFixtures.threeParks[0].acres);
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-state`)
+        ).toHaveTextContent(parkFixtures.threeParks[0].state);
 
-    // assert - check that the expected content is rendered
-    expect(await screen.findByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-name`)).toHaveTextContent("Grand Canyon National Park");
+        expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-name`)
+        ).toHaveTextContent("Zion National Park");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-acres`)
+        ).toHaveTextContent(parkFixtures.threeParks[1].acres);
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-state`)
+        ).toHaveTextContent(parkFixtures.threeParks[1].state);
 
-    const detailsButton = screen.getByTestId(`${testId}-cell-row-0-col-Details-button`);
-    expect(detailsButton).toBeInTheDocument();
+        const detailsButton = screen.getByTestId(
+            `${testId}-cell-row-0-col-Details-button`
+        );
+        expect(detailsButton).toBeInTheDocument();
+        expect(detailsButton).toHaveClass("btn-primary");
 
-    // act - click the details button
-    fireEvent.click(detailsButton);
+        expect(screen.queryByText("Edit")).not.toBeInTheDocument();
+        expect(screen.queryByText("Delete")).not.toBeInTheDocument();
+    });
 
-    // assert - check that the navigate function was called with the expected path
-    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/parks/details/2'));
+    test("Has the expected column headers, content and no buttons when showButtons=false", () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ParkTable
+                        parks={parkFixtures.threeParks}
+                        showButtons={false}
+                    />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    // assert - check that the console.log was called with the expected message
-    expect(console.log).toHaveBeenCalled();
-    const message = console.log.mock.calls[0][0];
-    const expectedMessage = "detailsCallback: {\"id\":2,\"name\":\"Grand Canyon National Park\",\"state\":\"Arizona\",\"acres\":1218375})";
-    expect(message).toMatch(expectedMessage);
-    restoreConsole();
-  });
+        expectedHeaders.forEach((headerText) => {
+            const header = screen.getByText(headerText);
+            expect(header).toBeInTheDocument();
+        });
 
-  test("Delete button calls delete callback", async () => {
-    // arrange
-    const restoreConsole = mockConsole();
+        expectedFields.forEach((field) => {
+            const header = screen.getByTestId(`${testId}-cell-row-0-col-${field}`);
+            expect(header).toBeInTheDocument();
+        });
 
-    // act - render the component
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <ParkTable parks={parkFixtures.threeParks} />
-        </MemoryRouter>
-      </QueryClientProvider>
-    );
+        expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-name`)
+        ).toHaveTextContent("Grand Canyon National Park");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-acres`)
+        ).toHaveTextContent(parkFixtures.threeParks[0].acres);
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-state`)
+        ).toHaveTextContent(parkFixtures.threeParks[0].state);
 
-    // assert - check that the expected content is rendered
-    expect(await screen.findByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-name`)).toHaveTextContent("Grand Canyon National Park");
+        expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-name`)
+        ).toHaveTextContent("Zion National Park");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-acres`)
+        ).toHaveTextContent(parkFixtures.threeParks[1].acres);
+        expect(
+            screen.getByTestId(`${testId}-cell-row-1-col-state`)
+        ).toHaveTextContent(parkFixtures.threeParks[1].state);
 
-    const deleteButton = screen.getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-    expect(deleteButton).toBeInTheDocument();
+        expect(screen.queryByText("Delete")).not.toBeInTheDocument();
+        expect(screen.queryByText("Edit")).not.toBeInTheDocument();
+        expect(screen.queryByText("Details")).not.toBeInTheDocument();
+    });
 
-     // act - click the delete button
-    fireEvent.click(deleteButton);
+    test("Edit button navigates to the edit page for admin", async () => {
+        const restoreConsole = mockConsole();
 
-     // assert - check that the console.log was called with the expected message
-     await(waitFor(() => expect(console.log).toHaveBeenCalled()));
-     const message = console.log.mock.calls[0][0];
-     const expectedMessage = "deleteCallback: {\"id\":2,\"name\":\"Grand Canyon National Park\",\"state\":\"Arizona\",\"acres\":1218375})";
-     expect(message).toMatch(expectedMessage);
-     restoreConsole();
-  });
+        const currentUser = currentUserFixtures.adminUser;
+
+        // act - render the component
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ParkTable
+                        parks={parkFixtures.threeParks}
+                        currentUser={currentUser}
+                    />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        // assert - check that the expected content is rendered
+        expect(
+            await screen.findByTestId(`${testId}-cell-row-0-col-id`)
+        ).toHaveTextContent("2");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-name`)
+        ).toHaveTextContent("Grand Canyon National Park");
+
+        const editButton = screen.getByTestId(
+            `${testId}-cell-row-0-col-Edit-button`
+        );
+        expect(editButton).toBeInTheDocument();
+
+        // act - click the edit button
+        fireEvent.click(editButton);
+
+        // assert - check that the navigate function was called with the expected path
+        await waitFor(() =>
+            expect(mockedNavigate).toHaveBeenCalledWith("/parks/edit/2")
+        );
+
+        // assert - check that the console.log was called with the expected message
+        expect(console.log).toHaveBeenCalled();
+        const message = console.log.mock.calls[0][0];
+        const expectedMessage = `editCallback: {"id":2,"name":"Grand Canyon National Park","state":"Arizona","acres":1218375}`;
+        expect(message).toBe(expectedMessage);
+        restoreConsole();
+    });
+
+    test("Details button navigates to the details page", async () => {
+        const restoreConsole = mockConsole();
+
+        // act - render the component
+        render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ParkTable
+                        parks={parkFixtures.threeParks}
+                        currentUser={null}
+                    />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        // assert - check that the expected content is rendered
+        expect(
+            await screen.findByTestId(`${testId}-cell-row-0-col-id`)
+        ).toHaveTextContent("2");
+        expect(
+            screen.getByTestId(`${testId}-cell-row-0-col-name`)
+        ).toHaveTextContent("Grand Canyon National Park");
+
+        const detailsButton = screen.getByTestId(
+            `${testId}-cell-row-0-col-Details-button`
+        );
+        expect(detailsButton).toBeInTheDocument();
+
+        // act - click the details button
+        fireEvent.click(detailsButton);
+
+        // assert - check that the navigate function was called with the expected path
+        await waitFor(() =>
+            expect(mockedNavigate).toHaveBeenCalledWith("/parks/details/2")
+        );
+
+        // assert - check that the console.log was called with the expected message
+        expect(console.log).toHaveBeenCalled();
+        const message = console.log.mock.calls[0][0];
+        const expectedMessage = `detailsCallback: {"id":2,"name":"Grand Canyon National Park","state":"Arizona","acres":1218375}`;
+        expect(message).toBe(expectedMessage);
+        restoreConsole();
+    });
 });
