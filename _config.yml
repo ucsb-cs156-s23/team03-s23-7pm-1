@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s23/team03-s23-7pm-1
 owner: ucsb-cs156-s23
 repo_name: team03-s23-7pm-1
-pull_requests: [{"author":{"id":"MDQ6VXNlcjYwMTI0ODcz","is_bot":false,"login":"b4k3s","name":""},"headRefName":"Christian-AddIntLimitForParkAcres","number":36,"title":"Add limits to Park acres to avoid errors","url":"https://github.com/ucsb-cs156-s23/team03-s23-7pm-1/pull/36"}]
+pull_requests: []
