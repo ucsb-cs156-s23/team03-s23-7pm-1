@@ -83,6 +83,7 @@ function RestaurantForm({ initialContents, submitAction, buttonLabel = "Create" 
                     data-testid={testIdPrefix + "-roachCounter"}
                     id="roachCounter"
                     type="number"
+                    min={0}
                     isInvalid={Boolean(errors.roachCounter)}
                     {...register("roachCounter", {
                         required: "Roach counter is required.",
